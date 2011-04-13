@@ -1,0 +1,33 @@
+<h1>Instances</h1>
+
+<table>
+  <tr>
+    <th>SID</th>
+    <th>Nom BDD</th>
+    <th>Serveur</th>
+    <th>Agence</th>
+    <th>Environnement</th>
+    <th>Description</th>
+    <th>Note</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @instances.each do |instance| %>
+  <tr>
+    <td><%= link_to instance.sid, instance %></td>
+    <td><%= instance.db %></td>
+    <td><%= link_to instance.server.name, instance.server %></td>
+    <td><%= link_to instance.branch.name, instance.branch %></td>
+    <td><%= instance.environment.name %></td>
+    <td><%= instance.description %></td>
+    <td><%= instance.note %></td>
+    <td><%= link_to 'Modifie', edit_instance_path(instance) %></td>
+    <td><%= link_to 'Détruit', instance, :confirm => 'Êtes-vous sûr?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nouvelle instance', new_instance_path %>

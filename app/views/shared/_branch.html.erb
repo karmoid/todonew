@@ -1,0 +1,6 @@
+<div class="mini<%= @parent.class.to_s.downcase %>">
+  <img src="/images/branch.png" alt="agence" align="left"/>Agence	
+  <p align="right">
+    <b>Entité : </b><%= link_to @parent.entity.name, @parent.entity %> <%= @parent.entity.description%><br /> 
+    <b>Agence : </b><%= link_to @parent.name, @parent %> <%= @parent.description %>
+</div>

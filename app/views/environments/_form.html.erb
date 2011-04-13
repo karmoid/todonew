@@ -1,0 +1,29 @@
+<%= form_for(@environment) do |f| %>
+  <% if @environment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@environment.errors.count, "erreur") %> empêche cet environnement d'être sauvegardé:</h2>
+
+      <ul>
+      <% @environment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Nom"  %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

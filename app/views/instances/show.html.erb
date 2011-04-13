@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>SID:</b>
+  <%= @instance.sid %>
+</p>
+
+<p>
+  <b>Nom BDD:</b>
+  <%= @instance.db %>
+</p>
+
+<p>
+  <b>Serveur:</b>
+  <%= link_to @instance.server.name, @instance.server %>
+</p>
+
+<p>
+  <b>Agence:</b>
+  <%= link_to @instance.branch.entity.name, @instance.branch.entity %>&nbsp;<%= link_to @instance.branch.name, @instance.branch %>
+</p>
+
+<p>
+  <b>Environnement:</b>
+  <%= @instance.environment.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @instance.description %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @instance.note %>
+</p>
+
+<%= render :partial => "shared/events", :locals => { :events => @interventions } %>
+
+<%= link_to "Ajout d'opération", new_instance_event_path(@instance) %>
+<%= link_to 'Modifier', edit_instance_path(@instance) %> |
+<%= link_to 'Retour', instances_path %>

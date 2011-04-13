@@ -1,0 +1,11 @@
+<h1>Interventions</h1>
+
+<%= link_to "semaine", "/events/period/7" %>
+<%= link_to "mois", "/events/period/30" %>
+<%= link_to "année", "/events/period/365" %>
+<br />
+<%= link_to image_tag("csv.jpg", :border=>0), params.merge(:format => :csv), :action => :index %>
+
+<%= render :partial => "shared/events", :locals => { :events => @interventions } %>
+
+<br />

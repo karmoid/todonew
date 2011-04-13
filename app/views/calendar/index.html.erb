@@ -1,0 +1,7 @@
+<h3><%= @current_selection %></h3>
+<h2><%= @dbg %></h2>
+<%= form_tag :action => :index, :month => @month, :year => @year %>
+  <%= select_tag "info", options_for_select(@sellist, params[:info]) %>
+  <%= submit_tag 'Filtrer' %>  
+<%= raw(event_calendar) %>
+</form>

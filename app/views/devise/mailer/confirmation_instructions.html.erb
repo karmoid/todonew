@@ -1,0 +1,5 @@
+<p>Bienvenue <%= @resource.email %>!</p>
+
+<p>Vous pouvez valider votre compte au moyen du lin ci-dessous:</p>
+
+<p><%= link_to 'Confirmer mon compte', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>

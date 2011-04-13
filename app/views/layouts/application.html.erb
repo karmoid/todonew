@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Toudoux</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "event_calendar" %>  
+  <%= csrf_meta_tag %>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <%= stylesheet_link_tag 'event_calendar', :media => 'screen' %>  
+  <%= stylesheet_link_tag 'custom', :media => 'screen' %>  
+</head>
+<body>
+
+<div>
+	<h1>Suivi des interventions en agence</h1><h2>C.m. 2011 Karmo Prod.</h2>	
+	<div id="centeredmenu">
+	  <ul>      
+	  <% if controller_name != 'welcome' %>
+	    <li> <%= link_to "Accueil", root_path %> </li>
+	  <% end %>
+	  <% if user_signed_in? %>
+	    <li><%= link_to "identifié en "+current_user.email, welcome_account_path %></li>
+	    <li><%= link_to "Deconnexion", destroy_user_session_path %></li>
+	  <% else %>
+	    <% if controller_name != 'registrations' %>
+	      <li> <%= link_to "Subscription", new_user_registration_path %> </li>
+	    <% end %>
+	    <% if controller_name != 'sessions' %>
+	      <li> <%= link_to "Connexion", new_user_session_path %> </li>
+	    <% end %>
+	  <% end %>
+	  </ul>
+	</div>
+</div>
+<% if user_signed_in? %>
+	<div id="talltabs-black"> 
+		<ul> 
+	        <% activated = controller_name == 'calendar' ? "active" : "" %> 
+			<li class="first <%= activated %>"><%= link_to 'Agenda', calendar_path(Date.current.year, Date.current.month) %></li>
+	        <% activated = controller_name == 'branches' ? "class='active'" : "" %> 
+			<li <%= activated %>><%= link_to 'Agences', branches_path %></li>
+	        <% activated = controller_name == 'servers' ? "class='active'" : "" %> 
+			<li <%= activated %>><%= link_to 'Serveurs', servers_path %></li>
+	        <% activated = controller_name == 'instances' ? "class='active'" : "" %> 
+			<li <%= activated %>><%= link_to 'Instances', instances_path %></li>
+	        <% activated = controller_name == 'events' ? "class='active'" : "" %> 
+			<li <%= activated %>><%= link_to 'Interventions', "/events/index" %></li>
+			<li>&nbsp;</li>
+	        <% activated = controller_name == 'entities' ? "class='active'" : "" %> 
+			<li <%= activated %>><%= link_to 'Entités', entities_path %></li>
+	        <% activated = controller_name == 'environments' ? "class='active'" : "" %> 
+			<li <%= activated %>><%= link_to 'Environnements', environments_path %></li>
+	        <% activated = controller_name == 'opegroups' ? "class='active'" : "" %> 
+			<li <%= activated %>><%= link_to "Groupe d'opérations", opegroups_path %></li>
+	        <% activated = controller_name == 'operations' ? "class='active'" : "" %> 
+			<li <%= activated %>><%= link_to "Opérations", operations_path %></li>
+	        <% activated = controller_name == 'intervenants' ? "active" : "" %> 
+			<li class="last <%= activated %>"><%= link_to "Intervenants", intervenants_path %></li>
+		</ul> 
+	</div> 
+<% end %>
+
+<div class="colmask rightmenu"> 
+	<div class="colleft"> 
+		<div class="col1">
+		</div>
+		<div class="fullpage">
+			<%= yield %>
+		</div>
+	</div>			
+</div>	
+<div id="footer">
+	<%= debug params %>
+</div>
+</body>
+</html>

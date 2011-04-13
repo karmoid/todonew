@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Firstname:</b>
+  <%= @intervenant.firstname %>
+</p>
+
+<p>
+  <b>Lastname:</b>
+  <%= @intervenant.lastname %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @intervenant.email %>
+</p>
+
+<p>
+  <b>Phone1:</b>
+  <%= @intervenant.phone1 %>
+</p>
+
+<p>
+  <b>Phone2:</b>
+  <%= @intervenant.phone2 %>
+</p>
+
+<p>
+  <b>Entity:</b>
+  <%= @intervenant.entity_id %>
+</p>
+
+<%= render :partial => "shared/events", :locals => { :events => @interventions } %>
+
+<%= link_to 'Edit', edit_intervenant_path(@intervenant) %> |
+<%= link_to 'Back', intervenants_path %>

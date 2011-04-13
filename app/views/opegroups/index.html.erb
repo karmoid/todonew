@@ -1,0 +1,23 @@
+<h1>Listing opegroups</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @opegroups.each do |opegroup| %>
+  <tr>
+    <td><%= link_to opegroup.name, opegroup %></td>
+    <td><%= opegroup.description %></td>
+    <td><%= link_to 'Edit', edit_opegroup_path(opegroup) %></td>
+    <td><%= link_to 'Destroy', opegroup, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Opegroup', new_opegroup_path %>

@@ -1,0 +1,37 @@
+<%= form_for(@branch) do |f| %>
+  <% if @branch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@branch.errors.count, "erreur") %> empêche cette agence d'être sauvegardée:</h2>
+
+      <ul>
+      <% @branch.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Nom" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :entity_id, "Entité" %><br />
+    <%= f.select :entity_id, @entities.collect {|s| [s.name, s.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="field">
+    <%= f.label :refreshed %><br />
+    <%= select(:branch, :refreshed, options_for_select([['non', 1], ['planifié', 2], ['réalisé', 3], ['a corriger', 4], ['erreur', 5]],@branch.refreshed)) %> 
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<h1>Serveurs</h1>
+
+<%= link_to image_tag("csv.jpg", :border=>0), params.merge(:format => :csv), :action => :index %>
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Description</th>
+    <th>Alias</th>
+    <th>Agence</th>
+    <th>Note</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @servers.each do |server| %>
+  <tr>
+    <td><%= link_to server.name, server %></td>
+    <td><%= server.description %></td>
+    <td><%= server.alias %></td>
+    <td><%= link_to server.branch.name, server.branch %></td>
+    <td><%= server.note %></td>
+    <td><%= link_to 'Modifie', edit_server_path(server) %></td>
+    <td><%= link_to 'Détruit', server, :confirm => 'Êtes-vous sûr?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+<%= link_to "Création d'un serveur", new_server_path %>

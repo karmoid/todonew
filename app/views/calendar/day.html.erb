@@ -1,0 +1,2 @@
+<h1><%= I18n.localize(@seldate, :format => "%A %e") %>&nbsp;<%= link_to I18n.localize(@seldate, :format => "%B %Y"), calendar_path(@year,@month) %></h1>
+<%= render :partial => "shared/events_by_branch", :locals => { :events => @interventions } %>

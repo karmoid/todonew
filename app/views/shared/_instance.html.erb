@@ -1,0 +1,10 @@
+<div class="mini<%= @parent.class.to_s.downcase %>">
+  <img src="/images/instance.jpg" alt="instance" align="left"/>Instance	
+  <p align="right">
+	  <b>Environnement : </b><%= link_to @parent.environment.name, @parent.environment %> <%= @parent.environment.description %><br />
+	  <b>Server : </b><%= link_to @parent.server.name, @parent.server %> <%= @parent.server.description %><br />
+	  <b>Instance : </b><%= link_to @parent.sid, @parent %> <%= @parent.description %><br />
+	  <b>Base de données : </b><%= @parent.db %><br />
+  </p>
+  <p>agence de <%= link_to @parent.branch.description %></p>
+</div>

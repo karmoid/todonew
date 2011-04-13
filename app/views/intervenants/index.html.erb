@@ -1,0 +1,33 @@
+<h1>Listing intervenants</h1>
+
+<table>
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Email</th>
+    <th>Phone1</th>
+    <th>Phone2</th>
+    <th>Entité</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @intervenants.each do |intervenant| %>
+  <tr>
+    <td><%= intervenant.firstname %></td>
+    <td><%= intervenant.lastname %></td>
+    <td><%= intervenant.email %></td>
+    <td><%= intervenant.phone1 %></td>
+    <td><%= intervenant.phone2 %></td>
+    <td><%= intervenant.entity.description %></td>
+    <td><%= link_to 'Show', intervenant %></td>
+    <td><%= link_to 'Edit', edit_intervenant_path(intervenant) %></td>
+    <td><%= link_to 'Destroy', intervenant, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Intervenant', new_intervenant_path %>

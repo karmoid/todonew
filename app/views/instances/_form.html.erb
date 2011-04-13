@@ -1,0 +1,45 @@
+<%= form_for(@instance) do |f| %>
+  <% if @instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@instance.errors.count, "erreur") %> empêche cette instance d'être sauvegardée:</h2>
+
+      <ul>
+      <% @instance.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sid, "SID base de données" %><br />
+    <%= f.text_field :sid %>
+  </div>
+  <div class="field">
+    <%= f.label :db, "Nom de base de données" %><br />
+    <%= f.text_field :db %>
+  </div>
+  <div class="field">
+    <%= f.label :server_id, "Serveur" %><br />
+    <%= f.select :server_id, @servers.collect {|s| [s.name, s.id]}  %>
+  </div>
+  <div class="field">
+    <%= f.label :branch_id, "Agence" %><br />
+    <%= f.select :branch_id, @branches.collect {|s| [s.name, s.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :environment_id, "Environnement" %><br />
+    <%= f.select :environment_id, @environments.collect {|s| [s.name, s.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

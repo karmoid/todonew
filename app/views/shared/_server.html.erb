@@ -1,0 +1,10 @@
+<div class="mini<%= @parent.class.to_s.downcase %>">
+  <img src="/images/server.png" alt="serveur" align="left"/>Serveur
+  <p align="right">
+    <b>Agence : </b><%= link_to @parent.branch.name, @parent.branch %><br />	
+    <b>Serveur : </b><%= link_to @parent.name, @parent %> <% @parent.description %><br />
+    <b>Alias DNS : </b><% @parent.alias %><br />
+  </p>  
+  <p>agence de <%= link_to @parent.branch.description %></p>  	
+</div>
+

@@ -1,0 +1,7 @@
+<%= render "/shared/"+@parent.class.to_s.downcase %>
+<img src="/images/intervention.png" alt="intervention">
+<h1>Nouvelle Intervention</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', @parent %>

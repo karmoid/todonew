@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nom:</b>
+  <%= @server.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @server.description %>
+</p>
+
+<p>
+  <b>Alias:</b>
+  <%= @server.alias %>
+</p>
+
+<p>
+  <b>Agence:</b>
+  <%= link_to @server.branch.name, @server.branch %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @server.note %>
+</p>
+
+<table>
+<tr>
+  <th>Nom</th>
+  <th>Base</th>
+  <th>Desciption</th>
+  <th>Note</th>
+</tr>
+<% @server.instances.each do |instance| %>
+  <tr>
+    <td><%= link_to instance.sid, instance %></td>
+    <td><%= instance.db %></td>
+    <td><%= instance.description %></td>
+    <td><%= instance.note %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= render :partial => "shared/events", :locals => { :events => @interventions } %>
+
+<%= link_to "Ajout d'opération", new_server_event_path(@server) %>
+<%= link_to 'Modifier', edit_server_path(@server) %> |
+<%= link_to 'Retour', servers_path %>

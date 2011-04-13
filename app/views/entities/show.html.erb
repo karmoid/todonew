@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nom:</b>
+  <%= @entity.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @entity.description %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @entity.note %>
+</p>
+
+  <%= raw Cartographer::Header.new.to_s %>
+  <%= raw @map.to_html %>
+  <div style="width:700px;height:700px;" id="map" > [Map]</div>	
+
+<table>
+<tr>
+  <th>Agence</th>
+  <th>Description</th>
+</tr>
+<% @data.each do |branch| %>
+  <tr>
+    <td><%= link_to branch.name,  branch %></td>
+    <td><%= branch.description %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Modifier', edit_entity_path(@entity) %> |
+<%= link_to 'Retour', entities_path %>

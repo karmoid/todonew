@@ -1,0 +1,37 @@
+<%= form_for(@server) do |f| %>
+  <% if @server.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@server.errors.count, "erreur") %> emp^che ce serveur d'être sauvegardé:</h2>
+
+      <ul>
+      <% @server.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Nom" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :alias %><br />
+    <%= f.text_field :alias %>
+  </div>
+  <div class="field">
+    <%= f.label :branch_id, "Agence" %><br />
+    <%= f.select :branch_id, @branches.collect {|s| [s.name, s.id]} %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

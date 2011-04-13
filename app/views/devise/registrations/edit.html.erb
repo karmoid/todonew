@@ -1,0 +1,25 @@
+<h2>Modifier <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource_name, resource, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= f.error_messages %>
+
+  <p><%= f.label :email %></p>
+  <p><%= f.text_field :email %></p>
+
+  <p><%= f.label :password %> <i>(laisser vide si vous ne voulez rien modifier)</i></p>
+  <p><%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation %></p>
+  <p><%= f.password_field :password_confirmation %></p>
+
+  <p><%= f.label :current_password %> <i>(votr mot de passe est requis pour confirmer la modification)</i></p>
+  <p><%= f.password_field :current_password %></p>
+
+  <p><%= f.submit "Mettre à jour" %></p>
+<% end %>
+
+<h3>Désactiver mon compte</h3>
+
+<p>Mécontent? <%= link_to "Supprimer mon compte", registration_path(resource_name), :confirm => "Êtes vous sûr?", :method => :delete %>.</p>
+
+<%= link_to "Retour", :back %>

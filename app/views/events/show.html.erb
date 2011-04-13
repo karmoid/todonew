@@ -1,0 +1,98 @@
+<%= render "/shared/"+@parent.class.to_s.downcase %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Description:</b>
+  <%= @event.description %>
+</p>
+
+<p>
+  <b>Operation:</b>
+  <%= @event.operation.description %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @event.note %>
+</p>
+
+<p>
+  <b>Planned:</b>
+  <%= link_to @event.planned, "/calendar/#{@event.planned.year}/#{@event.planned.month}/#{@event.planned.day}"  unless @event.planned.nil? %>
+</p>
+
+<p>
+  <b>Done:</b>
+  <%= link_to @event.done, "/calendar/#{@event.done.year}/#{@event.done.month}/#{@event.done.day}" unless @event.done.nil? %>
+</p>
+
+<p>
+  <b>Cancelled:</b>
+  <%= link_to @event.cancelled, "/calendar/#{@event.cancelled.year}/#{@event.cancelled.month}/#{@event.cancelled.day}" unless @event.cancelled.nil? %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @event.status %>
+</p>
+
+<p class="round">Intervenants affectés</p>
+<table>
+<% path = @parent.class.to_s.downcase %>
+<% if ! @event.intervenants.empty? %>
+	<tr>
+		<th>Entité</th>
+		<th>Nom</th>	
+		<th>Prénom</th>	
+		<th>Mail</th>	
+		<th>Téléphones</th>
+		<th>Note</th>	
+		<th></th>
+	</tr>
+	<% @event.intervenants.each do |i| %>
+		<tr>
+			<td><%= i.entity.description %></td>
+			<td><%= i.firstname %></td>
+			<td><%= i.lastname %></td>
+			<td><%= i.email %></td>
+			<td><%= i.phone1 %> / <%= i.phone2 %></td>
+			<td><%= i.note %></td>
+			<td><%= eval("link_to 'supprimer', "+path+"_event_intervenant_path(@parent,@event,i), :method => :delete") %></td>
+		</tr>
+	<% end %>
+<% else %>
+<p>Aucun intervenant affecté</p>
+<% end %>
+</table>
+<p class="round">Intervenants disponibles</p>
+<table>
+<% if ! @intervenants.empty? %>
+	<tr>
+		<th>Entité</th>
+		<th>Nom</th>	
+		<th>Prénom</th>	
+		<th>Mail</th>	
+		<th>Téléphones</th>
+		<th>Note</th>	
+		<th></th>
+	</tr>
+	<% @intervenants.each do |i| %>
+		<tr>
+			<td><%= i.entity.description %></td>
+			<td><%= i.firstname %></td>
+			<td><%= i.lastname %></td>
+			<td><%= i.email %></td>
+			<td><%= i.phone1 %> / <%= i.phone2 %></td>
+			<td><%= i.note %></td>
+			<td><%= eval("link_to 'ajouter', "+@parent.class.to_s.downcase+"_event_intervenant_path(@parent,@event,i), :method => :put") %></td>
+		</tr>
+	<% end %>
+</table>
+<% else %>
+<p>Aucun intervenant disponible</p>
+<% end %>
+
+
+<%= eval("link_to 'Modifier', edit_"+path+"_event_path(@parent,@event)") %> |
+<%= link_to 'Retour', @parent %>

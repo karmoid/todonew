@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: MyString
+  operation_id: 1
+  note: MyText
+  planned: 2011-02-06
+  done: 2011-02-06
+  cancelled: 2011-02-06
+  status: MyText
+
+two:
+  description: MyString
+  operation_id: 1
+  note: MyText
+  planned: 2011-02-06
+  done: 2011-02-06
+  cancelled: 2011-02-06
+  status: MyText

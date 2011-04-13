@@ -1,0 +1,9 @@
+<h1>Bienvenue</h1>
+<div class="span-10">
+<p>Suivi interne de Serveurs, Instances de base de données & Agences</p>
+</div>
+<% if user_signed_in? %>  
+  <%= raw Cartographer::Header.new.to_s %>
+  <%= raw @map.to_html %>
+  <div style="width:700px;height:700px;" id="map" > [Map]</div>	
+<% end %>

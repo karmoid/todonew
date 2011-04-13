@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nom:</b>
+  <%= @branch.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @branch.description %>
+</p>
+
+<p>
+  <b>Entité:</b>
+  <%= link_to @branch.entity.name, @branch.entity %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @branch.note %>
+</p>
+
+<p>
+  <b>Refresh Serveur:</b>
+<% case %>
+<%   when @branch.refreshed == 1 then %>
+  Non traité
+<%   when @branch.refreshed == 2 then %>
+  Planifié
+<%   when @branch.refreshed == 3 then %>
+  Réalisé
+<%   when @branch.refreshed == 4 then %>
+  A corriger
+<%   when @branch.refreshed == 5 then %>
+  <b>Erreur</b>
+<% end %>  
+</p>
+
+<table>
+<tr>
+  <th>Nom</th>
+  <th>Desciption</th>
+  <th>Note</th>
+</tr>
+<% @branch.servers.each do |server| %>
+  <tr>
+    <td><%= link_to server.name, server%></td>
+    <td><%= server.description %></td>
+    <td><%= server.note %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= render :partial => "shared/events_by_branch", :locals => { :events => @interventions } %>
+
+<%= link_to "Ajout d'opération", new_branch_event_path(@branch) %>
+<%= link_to 'Modifier', edit_branch_path(@branch) %> |
+<%= link_to 'Retour', branches_path %>

@@ -1,0 +1,28 @@
+<h1>Agences</h1>
+<%= link_to image_tag("csv.jpg", :border=>0), params.merge(:format => :csv), :action => :index %>
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Description</th>
+    <th>Entité</th>
+    <th>Note</th>
+    <th></th>
+    <th></th>
+    
+  </tr>
+
+<% @branches.each do |branch| %>
+  <tr>
+    <td><%= link_to branch.name, branch %></td>
+    <td><%= branch.description %></td>
+    <td><%= branch.entity.name %></td>
+    <td><%= branch.note %></td>
+    <td><%= link_to 'Modifie', edit_branch_path(branch) %></td>
+    <td><%= link_to 'Détruit', branch, :confirm => 'Êtes-vous sûr?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to "Création d'agence", new_branch_path %>

@@ -1,0 +1,166 @@
+body {
+	margin:0;
+	padding:0;
+	border:0;			/* This removes the border around the viewport in old versions of IE */
+	width:100%;
+	background:#fff;
+	min-width:600px;    	/* Minimum width of layout - remove line if not required */
+					/* The min-width property does not work in old versions of Internet Explorer */
+	font-size:90%;
+}
+a {
+	color:#369;
+}
+a:hover {
+	color:#fff;
+	background:#369;
+	text-decoration:none;
+}
+h1, h2, h3 {
+	margin:.8em 0 .2em 0;
+	padding:0;
+}
+p {
+	margin:.4em 0 .8em 0;
+	padding:0;
+}
+img {
+	margin:10px 0 5px;
+}
+#ads img {
+	display:block;
+	padding-top:10px;
+}
+
+
+/* Footer styles */
+#footer {
+	clear:both;
+	float:left;
+	width:100%;
+	border-top:1px solid #000;
+}
+#footer p {
+	padding:10px;
+	margin:0;
+}
+
+.miniinstance {
+border-style: groove;
+border-color: #0000FF;
+border-width: 5px;
+padding: 5px;
+margin: 5px;
+}
+
+.minibranch {
+border-style: groove;
+border-color: #006600;
+border-width: 5px;
+margin: 5px;
+padding: 5px;
+}
+
+.miniserver {
+border-style: groove;
+border-color: #7F0055;
+border-width: 5px;
+margin: 5px;
+padding: 5px;
+}
+
+	
+#centeredmenu {
+   float:left;
+   width:100%;
+   background:#fff;
+   border-bottom:4px solid #000;
+   overflow:hidden;
+   position:relative;
+}
+#centeredmenu ul {
+   clear:left;
+   float:left;
+   list-style:none;
+   margin:0;
+   padding:0;
+   position:relative;
+   left:50%;
+   text-align:center;
+}
+#centeredmenu ul li {
+   display:block;
+   float:left;
+   list-style:none;
+   margin:0;
+   padding:0;
+   position:relative;
+   right:50%;
+}
+#centeredmenu ul li a {
+   display:block;
+   margin:0 0 0 1px;
+   padding:3px 10px;
+   background:#ddd;
+   color:#000;
+   text-decoration:none;
+   line-height:1.3em;
+}
+#centeredmenu ul li a:hover {
+   background:#369;
+   color:#fff;
+}
+#centeredmenu ul li a.active,
+#centeredmenu ul li a.active:hover {
+   color:#fff;
+   background:#000;
+   font-weight:bold;
+}
+
+/* -------------------------------------------------- */
+/* talltabs-black */
+/* -------------------------------------------------- */
+#talltabs-black {
+	clear:left;
+	float:left;
+	padding:0;
+	border-top:6px solid #000;
+	width:100%;
+	overflow:hidden;
+	font-family:Georgia, serif;
+}
+#talltabs-black ul {
+	float:left;
+	margin:0;
+	padding:0;
+	list-style:none;
+	position:relative;
+	left:50%;
+	text-align:center;
+}
+#talltabs-black ul li {
+	display:block;
+	float:left;
+	list-style:none;
+	margin:0;
+	padding:0;
+	position:relative;
+	right:50%;
+}
+#talltabs-black ul li a {
+	display:block;
+	float:left;
+	margin:0 1px 0 0;
+	padding:30px 10px 6px 10px;
+	background:#000;
+	text-decoration:none;
+	color:#fff;
+}
+#talltabs-black ul li a:hover {
+	padding:35px 10px 6px 10px;
+}
+#talltabs-black ul li.active a,
+#talltabs-black ul li.active a:hover {
+	padding:40px 10px 6px 10px;
+}
+	
