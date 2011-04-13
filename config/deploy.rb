@@ -31,7 +31,7 @@ set :use_sudo, false
 # repo details
 set :scm, :git
 set :scm_username, "passenger"
-set :repository, "git@github.com:karmoid/toudoux.git"
+set :repository, "git@github.com:karmoid/todonew.git"
 set :branch, "master"
 set :git_enable_submodules, 1
 
