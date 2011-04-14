@@ -1,0 +1,28 @@
+<%= form_for(@branch, :url => branch_path,
+			:html => {:class => 'panel',
+			:selected => 'true',
+			:title => 'Ajoute agence'}) do |f| %>
+  <div class="row">
+    <%= f.label :name, "Nom" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="row">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="row">
+    <%= f.label :entity_id, "Entité" %><br />
+    <%= f.select :entity_id, @entities.collect {|s| [s.name, s.id]} %>
+  </div>
+  <div class="row">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="row">
+    <%= f.label :refreshed %><br />
+    <%= select(:branch, :refreshed, options_for_select([['non', 1], ['planifié', 2], ['réalisé', 3], ['a corriger', 4], ['erreur', 5]],@branch.refreshed)) %> 
+  </div>
+  <div class="whiteButton">
+    <%= f.submit %>
+  </div>
+<% end %>

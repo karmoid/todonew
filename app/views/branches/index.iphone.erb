@@ -1,0 +1,9 @@
+<ul title="Agences" selected="true">
+<% for branch in @branches -%>
+<li><%= link_to h(branch.name), branch_path(branch) %></li>
+<% end -%>
+<li class="group">Actions</li>
+<li>
+<%= link_to 'Add branch', new_branch_path %>
+</li>
+</ul>

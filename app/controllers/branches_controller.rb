@@ -10,6 +10,7 @@ class BranchesController < ApplicationController
     respond_to do |format|
 		format.html # index.html.erb
 		format.xml  { render :xml => @branches }
+		format.iphone # index.iphone.erb
 		format.csv do
 			filename = I18n.l(Time.now, :format => :short) + "- branches.csv"	
 	      	csv_string = CSV.generate do |csv|
@@ -42,6 +43,7 @@ class BranchesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.iphone { render :layout => false } # show.iphone.erb
       format.xml  { render :xml => @branch }
     end
   end
