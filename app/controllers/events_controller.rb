@@ -10,6 +10,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @events }
+      format.iphone { render :layout => false }
 	  format.csv do
 			filename = I18n.l(Time.now, :format => :short) + "- interventions.csv"	
 	      	csv_string = CSV.generate do |csv|
@@ -68,6 +69,7 @@ class EventsController < ApplicationController
     # render :action => parent.class.to_s.tableize
     respond_to do |format|
       format.html # show.html.erb
+      format.iphone { render :layout => false }
       format.xml  { render :xml => @event }
     end
   end

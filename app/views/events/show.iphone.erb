@@ -1,0 +1,13 @@
+<ul title="<%= @event.branch_indirect.name %>" selected="true">
+  <li class="row"><%= @event.description %></li>
+  <li class="group">Détail</li>
+  <li>Cible: <%= @event.eventable.name unless @event.eventable.class.to_s == "Instance" %>
+		     <%= @event.eventable.sid if @event.eventable.class.to_s == "Instance" %></li>
+  <li>Opération: <%= @event.operation.description %></li>
+  <li>Note: <%= @event.note %></li>
+  <li class="group">Actions</li>
+  <li>Planifiée le: <%= I18n.localize(@event.planned.to_date, :format => :long) unless @event.planned.nil? %></li>
+  <li>Réalisée le: <%= I18n.localize(@event.done.to_date, :format => :long) unless @event.done.nil? %></li>
+  <li>Abandonné le: <%= I18n.localize(@event.cancelled.to_date, :format => :long) unless @event.cancelled.nil? %></li>
+  <li class="panel">Statut: <%= @event.status %></li>
+</ul>

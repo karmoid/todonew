@@ -154,9 +154,9 @@ WHERE
   events.eventable_type = 'Instance'
 ) b1  
 where opegroup_name = 'SRV_REFRESH' and 
-  ((planned between '#{Date.current-5}' and '#{Date.current + 5}') or 
-   (done between '#{Date.current-5}' and '#{Date.current + 5}') or 
-   (cancelled between '#{Date.current-5}' and '#{Date.current + 5}')
+  ((planned between '#{Date.current-12}' and '#{Date.current + 7}') or 
+   (done between '#{Date.current-12}' and '#{Date.current + 7}') or 
+   (cancelled between '#{Date.current-12}' and '#{Date.current + 7}')
   ) 
   order by coalesce(cancelled,done,planned) ASC, branch_name, operation_name 
   SQL

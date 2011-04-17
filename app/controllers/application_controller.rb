@@ -21,8 +21,8 @@ protected
 
 # Force all iPhone users to login
   def iphone_login_required
-    if iphone_request?
-      redirect_to new_user_session_path unless user_signed_in?
+  	if iphone_request?
+      redirect_to new_user_session_path unless (user_signed_in? || params[:controller]=="devise/sessions")
     end
   end
 
