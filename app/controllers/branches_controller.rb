@@ -6,11 +6,12 @@ class BranchesController < ApplicationController
   # GET /branches
   # GET /branches.xml
   def index
+  	@title = "toutes les agences"
     @branches = Branch.all
     respond_to do |format|
 		format.html # index.html.erb
 		format.xml  { render :xml => @branches }
-		format.iphone # index.iphone.erb
+		format.iphone { render :layout => false }
 		format.csv do
 			filename = I18n.l(Time.now, :format => :short) + "- branches.csv"	
 	      	csv_string = CSV.generate do |csv|
@@ -39,6 +40,7 @@ class BranchesController < ApplicationController
   # GET /branches/1.xml
   def show
     @branch = Branch.find(params[:id])
+  	@title = @branch.description + " - " + @branch.name 
     @interventions = @branch.events.order("coalesce(cancelled,done,planned) ASC")
 
     respond_to do |format|

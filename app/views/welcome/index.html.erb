@@ -1,8 +1,40 @@
 <h1>Bienvenue</h1>
+
+<% if iphone_user_agent? # Show message for iPhone users -%>
+<div class="message">
+    <p>Using an iPhone? <a href="http://iphone.trawlr.com/">Use the optimised version</a>.</p>
+</div>
+<% end -%>
+
 <div class="span-10">
 <p>Suivi interne de Serveurs, Instances de base de données & Agences</p>
 </div>
-<% if user_signed_in? %>  
+<table>
+<% if user_signed_in? %>
+  <% last_date = "#" %>
+  <% last_branch = -1 %>
+  <% @ope.each do |o| %>
+      <% if last_date !=  o["date_used"].to_date.to_pretty %>
+          <% last_date = o["date_used"].to_date.to_pretty %>
+          <% if last_date != "#" %>
+              </td></tr>
+          <% end %>
+          <tr>  
+          <td><%= last_date %></td>
+  	      <% last_branch = -1 %>
+      <% end %>
+      <% if last_branch != o["branch_id"].to_i %>
+          <% if last_branch != -1 %>
+              </td>
+          <% end %>
+          <% last_branch = o["branch_id"].to_i %>
+          <td><%= link_to o["branch_name"], branch_path(last_branch) %>
+      <% end %>
+   	  <%= eval("link_to image_tag('"+o["operation_name"].downcase+"-"+o["status"]+".png', :alt =>'"+o["operation_description"]+"' ), "+o["eventable_type"].downcase+"_event_path(o['target_id'].to_i,o['id'].to_i)") %>
+	<!-- >  <li class="toolbar"><%= o["operation_description"] %></li> -->
+  <% end %>
+</td></tr>
+</table>  
   <%= raw Cartographer::Header.new.to_s %>
   <%= raw @map.to_html %>
   <div style="width:700px;height:700px;" id="map" > [Map]</div>	

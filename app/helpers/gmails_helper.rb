@@ -1,4 +1,4 @@
-module Gmails
+module GmailsHelper
 	def set_gmail(data)
     	map = Cartographer::Gmap.new( 'map' )		
 		map.zoom = :bound
@@ -85,7 +85,7 @@ module PrettyDate
 			  when 0 then return "Aujourd'hui"
 			  when 1 then return "Hier"
 			  when 2 then return "Avant-hier"
-			  when 3..6 then return "La derniere semaine" 
+			  when 3..6 then return "La semaine passee" 
 			  when 7..13 then return "Il y a plus d'une semaine" #120 = 2 minutes
 			  when 14..21 then return "Il y a plus de deux semaines"
 			  when 22..28 then return "Il y a plus de trois semaines" # 3600 = 1 hour
@@ -102,7 +102,7 @@ module PrettyDate
 			  when 0 then return "Aujourd'hui"
 			  when 1 then return "Demain"
 			  when 2 then return "Apres-Demain"
-			  when 3..6 then return "Cette semaine" 
+			  when 3..6 then return "La semaine a venir" 
 			  when 7..13 then return "Dans plus d'une semaine" #120 = 2 minutes
 			  when 14..21 then return "Dans plus de deux semaines"
 			  when 22..28 then return "Dans plus de trois semaines" # 3600 = 1 hour
@@ -118,3 +118,4 @@ module PrettyDate
 end
 
 Time.send :include, PrettyDate
+Date.send :include, PrettyDate

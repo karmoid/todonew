@@ -1,0 +1,24 @@
+<ul title="Suivi opérations" selected="true">
+  <li class="group">Menu principal</li>
+  <li><%= link_to 'Agences', branches_path %></li>
+  <li><%= link_to 'Serveurs', servers_path %></li>
+  <li><%= link_to 'Instances', instances_path %></li>
+  <li class="group">Autres actions</li>
+  <li><%= link_to 'Agenda', calendar_path %></li>
+  <li><%= link_to 'Entités', entities_path %></li>
+  <li class="panel">Interventions</li>
+  <% last_branch = -1 %>
+  <% last_date = "#" %>
+  <% @ope.each do |o| %>
+      <% if last_date !=  o["date_used"].to_date.to_pretty %>
+        <% last_date = o["date_used"].to_date.to_pretty %>
+        <li class="group"><%= last_date %></li>
+      <% end %>
+      <% if last_branch !=  o["branch_id"] %>
+        <li class="panel"><%= o["branch_name"] %></li>
+        <% last_branch = o["branch_id"] %>
+      <% end %>
+   	  <%= eval("link_to image_tag('"+o["operation_name"].downcase+"-"+o["status"]+".png', :alt =>'"+o["operation_description"]+"' ), "+o["eventable_type"].downcase+"_event_path(o['target_id'].to_i,o['id'].to_i)") %>
+	<!-- >  <li class="toolbar"><%= o["operation_description"] %></li> -->
+  <% end %>
+</ul>  
