@@ -2,7 +2,7 @@ require 'iconv'
 require 'csv'
 class EntitiesController < ApplicationController
 	
-include Gmails	
+  include GmailsHelper
 
   BOM = "\377\376" #Byte Order Mark
   before_filter :authenticate_user!
