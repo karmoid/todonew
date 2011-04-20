@@ -9,70 +9,120 @@
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <%= stylesheet_link_tag 'event_calendar', :media => 'screen' %>  
-  <%= stylesheet_link_tag 'custom', :media => 'screen' %>  
+  <%= stylesheet_link_tag "blueprint/screen", :media => "screen, projection" %>
+  <%= stylesheet_link_tag "blueprint/print", :media => "print" %>
+  <!--[if IE]>
+  	<%= stylesheet_link_tag "blueprint/ie", :media => "screen, projection" %>
+  <![endif]-->
+  <%= stylesheet_link_tag "themes/default.advanced", :media => "all" %> 
+  <%= stylesheet_link_tag "themes/helper", :media => "screen,projection" %> 
 </head>
 <body>
 
-<div>
-	<h1>Suivi des interventions en agence</h1><h2>C.m. 2011 Karmo Prod.</h2>	
-	<div id="centeredmenu">
-	  <ul>      
-	  <% if controller_name != 'welcome' %>
-	    <li> <%= link_to "Accueil", root_path %> </li>
-	  <% end %>
-	  <% if user_signed_in? %>
-	    <li><%= link_to "identifié en "+current_user.email, welcome_account_path %></li>
-	    <li><%= link_to "Deconnexion", destroy_user_session_path %></li>
-	  <% else %>
-	    <% if controller_name != 'registrations' %>
-	      <li> <%= link_to "Subscription", new_user_registration_path %> </li>
-	    <% end %>
-	    <% if controller_name != 'sessions' %>
-	      <li> <%= link_to "Connexion", new_user_session_path %> </li>
-	    <% end %>
-	  <% end %>
-	  </ul>
+<div class="span-24">
+	<div class="span-12">
+		<h1>Suivi des interventions en agence</h1>
 	</div>
-</div>
-<% if user_signed_in? %>
-	<div id="talltabs-black"> 
-		<ul> 
-	        <% activated = controller_name == 'calendar' ? "active" : "" %> 
-			<li class="first <%= activated %>"><%= link_to 'Agenda', calendar_path(Date.current.year, Date.current.month) %></li>
-	        <% activated = controller_name == 'branches' ? "class='active'" : "" %> 
-			<li <%= activated %>><%= link_to 'Agences', branches_path %></li>
-	        <% activated = controller_name == 'servers' ? "class='active'" : "" %> 
-			<li <%= activated %>><%= link_to 'Serveurs', servers_path %></li>
-	        <% activated = controller_name == 'instances' ? "class='active'" : "" %> 
-			<li <%= activated %>><%= link_to 'Instances', instances_path %></li>
-	        <% activated = controller_name == 'events' ? "class='active'" : "" %> 
-			<li <%= activated %>><%= link_to 'Interventions', "/events/index" %></li>
-			<li>&nbsp;</li>
-	        <% activated = controller_name == 'entities' ? "class='active'" : "" %> 
-			<li <%= activated %>><%= link_to 'Entités', entities_path %></li>
-	        <% activated = controller_name == 'environments' ? "class='active'" : "" %> 
-			<li <%= activated %>><%= link_to 'Environnements', environments_path %></li>
-	        <% activated = controller_name == 'opegroups' ? "class='active'" : "" %> 
-			<li <%= activated %>><%= link_to "Groupe d'opérations", opegroups_path %></li>
-	        <% activated = controller_name == 'operations' ? "class='active'" : "" %> 
-			<li <%= activated %>><%= link_to "Opérations", operations_path %></li>
-	        <% activated = controller_name == 'intervenants' ? "active" : "" %> 
-			<li class="last <%= activated %>"><%= link_to "Intervenants", intervenants_path %></li>
-		</ul> 
-	</div> 
-<% end %>
+	<div class="span-12 last">
+		<h2>C.m. 2011 Karmo Prod.</h2>
+	</div>
 
-<div class="colmask rightmenu"> 
-	<div class="colleft"> 
-		<div class="col1">
-		</div>
-		<div class="fullpage">
-			<%= yield %>
-		</div>
-	</div>			
+	<div class="span-24 last">
+		<ul id="nav" class="dropdown dropdown-linear dropdown-columnar"> 
+			<li class="dir">Accueil
+				<ul>
+				<% if user_signed_in? %>
+					<li class="dir">Résumé
+						<ul>
+							<li><%= link_to "Synoptique", root_path %></li>
+							<li><%= link_to "Carte", "/welcome/indexmap" %></li>
+						</ul>	
+					</li>
+				<% end %>	
+				<% if user_signed_in? %>
+					<li class="dir"><%= current_user.email %>
+				<% else	%>
+					<li class="dir">Connexion
+				<% end %>	
+						<ul>
+						<% if user_signed_in? %>
+							<li><%= link_to "votre compte", welcome_account_path %></li>
+							<li><%= link_to "Deconnexion", destroy_user_session_path %></li>
+						<% else %>
+							<% if controller_name != 'registrations' %>
+							  <li> <%= link_to "Subscription", new_user_registration_path %> </li>
+							<% end %>
+							<% if controller_name != 'sessions' %>
+							  <li> <%= link_to "Connexion", new_user_session_path %> </li>
+							<% end %>
+						<% end %>
+						</ul>	
+					</li>
+			    </ul>
+			</li>    	
+			<% if user_signed_in? %>
+			<li class="dir">Planning
+				<ul>
+					<li class="dir">Mensuel
+						<ul>
+							<% current_date = Date.today << 1 %> 
+							<li><%= link_to "Mois dernier", calendar_path(current_date.year, current_date.month) %></li> 
+							<% current_date = Date.today %> 
+							<li><%= link_to "Mois courant", calendar_path(current_date.year, current_date.month) %></li>
+							<% current_date = Date.today >> 1 %> 
+							<li><%= link_to "Mois prochain", calendar_path(current_date.year, current_date.month) %></li>
+						</ul>	 
+				    </li>
+					<li class="dir">Journalier
+						<ul> 
+							<% current_date = Date.today - 2 %> 
+							<li><%= link_to "Avant-hier", calendar_path(current_date.year, current_date.month, current_date.day) %></li> 
+							<% current_date = Date.today - 1 %> 
+							<li><%= link_to "Hier", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
+							<% current_date = Date.today %> 
+							<li><%= link_to "Aujourd'hui", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
+							<% current_date = Date.today + 1 %> 
+							<li><%= link_to "Demain", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
+							<% current_date = Date.today + 2 %> 
+							<li><%= link_to "Après-demain", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
+						</ul>
+					</li>
+				</ul>			 
+			</li> 
+			<li class="dir">Opérations
+				<ul> 
+					<li class="dir">Cibles
+						<ul> 
+							<li><%= link_to 'Agences', branches_path %></li>
+							<li><%= link_to 'Serveurs', servers_path %></li>
+							<li><%= link_to 'Instances', instances_path %></li>
+						</ul> 
+					</li> 
+					<li class="dir">Données de référence
+						<ul>
+							<li><%= link_to 'Entités', entities_path %></li>
+							<li><%= link_to 'Environnements', environments_path %></li>
+							<li><%= link_to "Groupe d'opérations", opegroups_path %></li>
+							<li><%= link_to "Opérations", operations_path %></li>
+							<li><%= link_to "Intervenants", intervenants_path %></li>
+						</ul> 
+					</li> 
+					<li class="dir">Interventions
+						<ul> 
+							<li><%= link_to 'Interventions', "/events/index" %></li>
+						</ul> 
+					</li> 
+				</ul> 
+			</li> 
+			<% end %>
+		</ul> 		
+	</div>
 </div>	
-<div id="footer">
+
+<div class="span-24 last"> 
+	<%= yield %>
+</div>	
+<div class="span-24 last">
 	<%= debug params %>
 </div>
 </body>

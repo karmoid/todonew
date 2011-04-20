@@ -6,56 +6,58 @@
 </div>
 <% end -%>
 
-<div class="span-10">
-<p>Suivi interne de Serveurs, Instances de base de données & Agences</p>
+<div class="span-24 last">
+		<p>Suivi interne de Serveurs, Instances de base de données & Agences</p>
 </div>
-<table>
-<% if user_signed_in? %>
-  <% last_date = "#" %>
-  <% last_branch = -1 %>
-  <% last_name = "" %>
-  <% accu_html = "" %>
-  <% nbope = 0 %>
-  <% @ope.each do |o| %>
-      <% if last_date !=  o["date_used"].to_date.to_pretty %>
-          <% last_date = o["date_used"].to_date.to_pretty %>
-          <% if last_date != "#" %>
-              </tr>
-              <% if last_branch != -1 %>
-          	      <% accu_html += "<td colspan=#{nbope}>" %> 
-                  <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
-                  <% accu_html += "</td>" %>
-              <% end %>
-  			  <tr><%= raw accu_html %></tr>
-          <% end %>
-          <tr>  
-          <td rowspan="2"><%= last_date %></td>
-          <% accu_html = "" %>
-  	      <% last_branch = -1 %>
-  	      <% last_name = "" %>
-      <% end %>
-      <% if last_branch != o["branch_id"].to_i %>
-          <% if last_branch != -1 %>
-          	  <% accu_html += "<td colspan=#{nbope}>" %> 
-              <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
-              <% accu_html += "</td>" %>
-          <% end %>
-          <% nbope = 0 %>
-          <% last_branch = o["branch_id"].to_i %>
-          <% last_name = o["branch_name"] %>
-      <% end %>
-   	  <td><%= eval("link_to image_tag('"+o["operation_name"].downcase+"-"+o["status"]+".png', :alt =>'"+o["operation_description"]+"' ), "+o["eventable_type"].downcase+"_event_path(o['target_id'].to_i,o['id'].to_i)") %></td>
-   	  <% nbope += 1 %>
-  <% end %>  
-</td></tr>
-  <% if last_branch != -1 %>
-      <% accu_html += "<td colspan=#{nbope}>" %> 
-      <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
-      <% accu_html += "</td>" %>
-  <% end %>
-<tr><%= raw accu_html %></tr>
-</table>  
-  <%= raw Cartographer::Header.new.to_s %>
-  <%= raw @map.to_html %>
-  <div style="width:700px;height:700px;" id="map" > [Map]</div>	
-<% end %>
+<div class="span-24 last">
+	<% if user_signed_in? %>
+	<table>
+	  <% last_date = "#" %>
+	  <% last_branch = -1 %>
+	  <% last_name = "" %>
+	  <% accu_html = "" %>
+	  <% nbope = 0 %>
+	  <% @ope.each do |o| %>
+	      <% if last_date !=  o["date_used"].to_date.to_pretty %>
+	          <% last_date = o["date_used"].to_date.to_pretty %>
+	          <% if last_date != "#" %>
+	              </tr>
+	              <% if last_branch != -1 %>
+	          	      <% accu_html += "<td colspan=#{nbope}>" %> 
+	                  <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
+	                  <% accu_html += "</td>" %>
+	              <% end %>
+	  			  <tr><%= raw accu_html %></tr>
+	          <% end %>
+	          <tr>  
+	          <td rowspan="2"><%= last_date %></td>
+	          <% accu_html = "" %>
+	  	      <% last_branch = -1 %>
+	  	      <% last_name = "" %>
+	      <% end %>
+	      <% if last_branch != o["branch_id"].to_i %>
+	          <% if last_branch != -1 %>
+	          	  <% accu_html += "<td colspan=#{nbope}>" %> 
+	              <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
+	              <% accu_html += "</td>" %>
+	          <% end %>
+	          <% nbope = 0 %>
+	          <% last_branch = o["branch_id"].to_i %>
+	          <% last_name = o["branch_name"] %>
+	      <% end %>
+	   	  <td><%= eval("link_to image_tag('"+o["operation_name"].downcase+"-"+o["status"]+".png', :alt =>'"+o["operation_description"]+"' ), "+o["eventable_type"].downcase+"_event_path(o['target_id'].to_i,o['id'].to_i)") %></td>
+	   	  <% nbope += 1 %>
+	  	<% end %>  
+		</td></tr>
+		  <% if last_branch != -1 %>
+		      <% accu_html += "<td colspan=#{nbope}>" %> 
+		      <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
+		      <% accu_html += "</td>" %>
+		  <% end %>
+		<tr><%= raw accu_html %></tr>
+	</table>
+	<% end %>
+</div>	  
+  <% # raw Cartographer::Header.new.to_s %>
+  <% # raw @map.to_html %>
+  <% # div style="width:700px;height:700px;" id="map" > [Map] </div> %> 	

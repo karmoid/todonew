@@ -4,14 +4,24 @@ class WelcomeController < ApplicationController
   	
   def index
     if user_signed_in?
+        getevents # if iphone_user_agent?
+    end
+    respond_to do |format|
+      format.html 
+      format.xml  { render :xml => @ope }
+      format.iphone 
+    end
+  end
+  
+  def indexmap
+    if user_signed_in?
 		@data = Branch.all
     	@map = set_gmail(@data)
     end
-    getevents # if iphone_user_agent?
     respond_to do |format|
       format.html 
       format.xml  { render :xml => @data }
-      format.iphone 
+      format.iphone {render :action => :index} 
     end
   end
   
