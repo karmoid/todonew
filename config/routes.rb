@@ -6,6 +6,7 @@ Toudoux::Application.routes.draw do
   resources :opegroups
 
   get "events/index"
+  get "events/install_status"
   get "events/period/:period" => "events#index"
 
   get "welcome/account"

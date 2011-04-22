@@ -1,0 +1,21 @@
+<%= link_to image_tag("csv.jpg", :border=>0), params.merge(:format => :csv), :action => :install_status %>
+<table>
+	<tr class="added">
+		<td class="span5">Agence & Description</td>
+		<td class="span5">Serveur & Description</td>
+		<td class="span2">N° de série</td>
+		<td class="span6">Statut</td>
+		<td class="span3">Dates d'installation</td>
+		<td class="span3 last">Dates de migration</td>
+	</tr>
+	<% @ope.each do |o| %>
+		<tr>
+			<td><%= o["agence_name"] %><br /><span class="small"><%= o["agence_desc"] %></span></td>
+			<td><%= o["server_name"] %><br /><span class="small"><%= o["server_desc"] %></span></td>
+			<td><%= o["serialno"] %></td>
+			<td><%= raw o["status"] %></td>
+			<td><%= o["install_used"].to_date unless o["install_used"].nil? %></td>
+			<td><%= o["mig_used"].to_date unless o["mig_used"].nil? %></td>
+		</tr>
+	<% end %>
+</table>

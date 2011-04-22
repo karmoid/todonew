@@ -50,6 +50,76 @@ class EventsController < ApplicationController
 		end    
     end
   end
+  
+	def install_status
+		myquery = <<-SQL
+			select 
+			  b.name as agence_name, b.description as agence_desc, 
+			  lower(s.name) as server_name, s.description as server_desc, substring(s.description from 1 for  position('-' in  s.description)-1) as serialno,
+			  case 
+			    when emig.done is not null then
+			      'Installe & Migre'
+			    when einst.done is not null then 
+			      'Installe'
+			    when emig.cancelled is not null then
+			      'Migration abandonnee'
+			    when einst.cancelled is not null then
+			      'Installation abandonnee'
+			    else
+			      'Planifie'
+			   end as status,
+			  einst.planned as install_p, einst.done as install_d, einst.cancelled as install_c, coalesce(einst.cancelled, einst.done, einst.planned) as install_used,
+			  emig.planned as mig_p, emig.done as mig_d, emig.cancelled as mig_c, coalesce(emig.cancelled, emig.done, emig.planned) as mig_used
+			from brinks.branches b
+			inner join brinks.servers s on (s.branch_id=b.id)
+			left outer join brinks.events einst on (einst.eventable_type='Branch' and einst.eventable_id=b.id and einst.operation_id=4)
+			left outer join brinks.events emig on (emig.eventable_type='Branch' and emig.eventable_id=b.id and emig.operation_id=3)
+			where s.description not like 'IBM Model%' and
+			s.alias <> ''
+			order by 1 
+		SQL
+			
+		@ope = Event.connection.select_all(myquery)
+		
+		respond_to do |format|
+			format.html # index.html.erb
+			format.xml  { render :xml => @events }
+			format.iphone { render :layout => false }
+			format.csv do
+				filename = I18n.l(Time.now, :format => :short) + "- etat serveurs.csv"	
+		      	csv_string = CSV.generate do |csv|
+			        # header row
+			        csv << ["Agence", "DescriptionAgc", "Serveur", "DescriptionSrv", "NoSerie", "Etat", 
+			        	    "DateInstPlan", "DateInstDone", "DateInstCancel", "DateInstUsed",
+			        	    "DateMigPlan", "DateMigDone", "DateMigCancel", "DateMigUsed"]
+			        # data rows
+			        @ope.each do |o|
+			          	csv << 	[o["agence_name"],
+								o["agence_desc"],			          	
+								o["server_name"],			          	
+								o["server_desc"],			          	
+								o["serialno"],
+								o["status"],
+								o["install_p"],
+								o["install_d"],
+								o["install_c"],
+								o["install_used"],
+			  					o["mig_p"],
+			  					o["mig_d"],
+			  					o["mig_c"],
+			  					o["mig_used"]]
+			        end
+				end
+			# csv_string = BOM + Iconv.conv("utf-16le", "utf-8", csv_string)
+		    # send it to the browsah
+		    send_data csv_string,
+		                :type => 'text/csv; charset=utf-8; header=present',
+		                :disposition => "attachment;",
+		                :filename => filename
+			end    
+		end
+		   	
+	end
 
   def getevents
     @interventions = Event.where(

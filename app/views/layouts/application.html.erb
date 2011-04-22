@@ -19,111 +19,118 @@
 </head>
 <body>
 
-<div class="span-24">
-	<div class="span-12">
-		<h1>Suivi des interventions en agence</h1>
-	</div>
-	<div class="span-12 last">
-		<h2>C.m. 2011 Karmo Prod.</h2>
-	</div>
-
+<div class="container">
+	<div class="span-24">	
+		<div class="span-12">
+			<h1>Suivi des interventions en agence</h1>
+		</div>
+		<div class="span-12 last">
+			<h2>C.m. 2011 Karmo Prod.</h2>
+		</div>
+	
+		<div class="span-24 last">
+			<ul id="nav" class="dropdown dropdown-linear dropdown-columnar"> 
+				<li class="dir">Accueil
+					<ul>
+					<% if user_signed_in? %>
+						<li class="dir">Résumé
+							<ul>
+								<li><%= link_to "Synoptique", root_path %></li>
+								<li><%= link_to "Carte", "/welcome/indexmap" %></li>
+							</ul>	
+						</li>
+					<% end %>	
+					<% if user_signed_in? %>
+						<li class="dir"><%= current_user.email %>
+					<% else	%>
+						<li class="dir">Connexion
+					<% end %>	
+							<ul>
+							<% if user_signed_in? %>
+								<li><%= link_to "votre compte", welcome_account_path %></li>
+								<li><%= link_to "Deconnexion", destroy_user_session_path %></li>
+							<% else %>
+								<% if controller_name != 'registrations' %>
+								  <li> <%= link_to "Subscription", new_user_registration_path %> </li>
+								<% end %>
+								<% if controller_name != 'sessions' %>
+								  <li> <%= link_to "Connexion", new_user_session_path %> </li>
+								<% end %>
+							<% end %>
+							</ul>	
+						</li>
+				    </ul>
+				</li>    	
+				<% if user_signed_in? %>
+				<li class="dir">Planning
+					<ul>
+						<li class="dir">Mensuel
+							<ul>
+								<% current_date = Date.today << 1 %> 
+								<li><%= link_to "Mois dernier", calendar_path(current_date.year, current_date.month) %></li> 
+								<% current_date = Date.today %> 
+								<li><%= link_to "Mois courant", calendar_path(current_date.year, current_date.month) %></li>
+								<% current_date = Date.today >> 1 %> 
+								<li><%= link_to "Mois prochain", calendar_path(current_date.year, current_date.month) %></li>
+							</ul>	 
+					    </li>
+						<li class="dir">Journalier
+							<ul> 
+								<% current_date = Date.today - 2 %> 
+								<li><%= link_to "Avant-hier", calendar_path(current_date.year, current_date.month, current_date.day) %></li> 
+								<% current_date = Date.today - 1 %> 
+								<li><%= link_to "Hier", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
+								<% current_date = Date.today %> 
+								<li><%= link_to "Aujourd'hui", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
+								<% current_date = Date.today + 1 %> 
+								<li><%= link_to "Demain", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
+								<% current_date = Date.today + 2 %> 
+								<li><%= link_to "Après-demain", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
+							</ul>
+						</li>
+					</ul>			 
+				</li> 
+				<li class="dir">Opérations
+					<ul> 
+						<li class="dir">Cibles
+							<ul> 
+								<li><%= link_to 'Agences', branches_path %></li>
+								<li><%= link_to 'Serveurs', servers_path %></li>
+								<li><%= link_to 'Instances', instances_path %></li>
+							</ul> 
+						</li> 
+						<li class="dir">Données de référence
+							<ul>
+								<li><%= link_to 'Entités', entities_path %></li>
+								<li><%= link_to 'Environnements', environments_path %></li>
+								<li><%= link_to "Groupe d'opérations", opegroups_path %></li>
+								<li><%= link_to "Opérations", operations_path %></li>
+								<li><%= link_to "Intervenants", intervenants_path %></li>
+							</ul> 
+						</li> 
+						<li class="dir">Interventions
+							<ul> 
+								<li><%= link_to 'Interventions', "/events/index" %></li>
+							</ul> 
+						</li> 
+						<li class="dir">Extractions
+							<ul> 
+								<li><%= link_to 'Etat des installations', "/events/install_status" %></li>
+							</ul> 
+						</li> 
+					</ul> 
+				</li> 
+				<% end %>
+			</ul> 		
+		</div>
+	</div>	
+	
+	<div class="span-24 last"> 
+		<%= yield %>
+	</div>	
 	<div class="span-24 last">
-		<ul id="nav" class="dropdown dropdown-linear dropdown-columnar"> 
-			<li class="dir">Accueil
-				<ul>
-				<% if user_signed_in? %>
-					<li class="dir">Résumé
-						<ul>
-							<li><%= link_to "Synoptique", root_path %></li>
-							<li><%= link_to "Carte", "/welcome/indexmap" %></li>
-						</ul>	
-					</li>
-				<% end %>	
-				<% if user_signed_in? %>
-					<li class="dir"><%= current_user.email %>
-				<% else	%>
-					<li class="dir">Connexion
-				<% end %>	
-						<ul>
-						<% if user_signed_in? %>
-							<li><%= link_to "votre compte", welcome_account_path %></li>
-							<li><%= link_to "Deconnexion", destroy_user_session_path %></li>
-						<% else %>
-							<% if controller_name != 'registrations' %>
-							  <li> <%= link_to "Subscription", new_user_registration_path %> </li>
-							<% end %>
-							<% if controller_name != 'sessions' %>
-							  <li> <%= link_to "Connexion", new_user_session_path %> </li>
-							<% end %>
-						<% end %>
-						</ul>	
-					</li>
-			    </ul>
-			</li>    	
-			<% if user_signed_in? %>
-			<li class="dir">Planning
-				<ul>
-					<li class="dir">Mensuel
-						<ul>
-							<% current_date = Date.today << 1 %> 
-							<li><%= link_to "Mois dernier", calendar_path(current_date.year, current_date.month) %></li> 
-							<% current_date = Date.today %> 
-							<li><%= link_to "Mois courant", calendar_path(current_date.year, current_date.month) %></li>
-							<% current_date = Date.today >> 1 %> 
-							<li><%= link_to "Mois prochain", calendar_path(current_date.year, current_date.month) %></li>
-						</ul>	 
-				    </li>
-					<li class="dir">Journalier
-						<ul> 
-							<% current_date = Date.today - 2 %> 
-							<li><%= link_to "Avant-hier", calendar_path(current_date.year, current_date.month, current_date.day) %></li> 
-							<% current_date = Date.today - 1 %> 
-							<li><%= link_to "Hier", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
-							<% current_date = Date.today %> 
-							<li><%= link_to "Aujourd'hui", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
-							<% current_date = Date.today + 1 %> 
-							<li><%= link_to "Demain", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
-							<% current_date = Date.today + 2 %> 
-							<li><%= link_to "Après-demain", calendar_path(current_date.year, current_date.month, current_date.day) %></li>
-						</ul>
-					</li>
-				</ul>			 
-			</li> 
-			<li class="dir">Opérations
-				<ul> 
-					<li class="dir">Cibles
-						<ul> 
-							<li><%= link_to 'Agences', branches_path %></li>
-							<li><%= link_to 'Serveurs', servers_path %></li>
-							<li><%= link_to 'Instances', instances_path %></li>
-						</ul> 
-					</li> 
-					<li class="dir">Données de référence
-						<ul>
-							<li><%= link_to 'Entités', entities_path %></li>
-							<li><%= link_to 'Environnements', environments_path %></li>
-							<li><%= link_to "Groupe d'opérations", opegroups_path %></li>
-							<li><%= link_to "Opérations", operations_path %></li>
-							<li><%= link_to "Intervenants", intervenants_path %></li>
-						</ul> 
-					</li> 
-					<li class="dir">Interventions
-						<ul> 
-							<li><%= link_to 'Interventions', "/events/index" %></li>
-						</ul> 
-					</li> 
-				</ul> 
-			</li> 
-			<% end %>
-		</ul> 		
+		<%= debug params %>
 	</div>
 </div>	
-
-<div class="span-24 last"> 
-	<%= yield %>
-</div>	
-<div class="span-24 last">
-	<%= debug params %>
-</div>
 </body>
 </html>
