@@ -8,5 +8,13 @@ module ApplicationHelper
          "#{base_title} | #{@title}"
       end
    end
+   
+  def sprite(name, options = {})
+    defaults = {:class => "ss_sprite ss_#{name}"}
+    if options[:class]
+      defaults[:class] << " #{options.delete(:class)}"
+    end
+    content_tag(:span, "~", defaults.merge!(options)).gsub("~","&nbsp;")
+  end   
 	
 end

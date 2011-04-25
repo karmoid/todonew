@@ -1,49 +1,56 @@
 <h2>Liste des opérations</h2>
-<table class="operations">
-  <tr>
-    <th>Projet</th>
-    <th>Action</th>
-    <th>Description</th>
-    <th>Echéance</th>
-    <th>Status</th>
-    <th>Notes</th>
-  </tr>
+<table  summary="Etats des planifications, installations & migrations" border="0" cellspacing="0" cellpadding="0">
+<caption><span class="ss_sprite ss_computer_go">Planification</span>, <span class="ss_sprite ss_computer_add">Installation</span> & <span class="ss_sprite ss_computer">Migration des serveurs</span></caption>
+	<thead>
+	  <tr>
+	    <th class="span-5">Projet</th>
+	    <th class="span-5">Action</th>
+	    <th class="span-5">Description</th>
+	    <th class="span-3">Status</th>
+	    <th class="span-5">Notes</th>
+	    <th class="span-1"></th>
+	  </tr>
+	</thead>
 <% currbranch = -1 %>
 <% events.each do |event| %>
-  <tr>
   <!-- % if currdate != event.date_used.to_pretty %-->	
-  <% if currbranch != event.branch_indirect_id %>	
-     <% currbranch = event.branch_indirect_id %>
-     <td style="background-color: #ffee55"><%= link_to event.branch_indirect.entity.name, event.branch_indirect.entity %></td>
-     <td style="background-color: #ffee55"><%= link_to event.branch_indirect.name, event.branch_indirect %></td>
-     <td style="background-color: #ffee55" colspan="6"><%= h(event.branch_indirect.note) %></td>
-     </tr><tr>
-   <% end %>  	
-   <td><%= link_to event.operation.opegroup.description, event.operation.opegroup %></td>
-   <td><%= link_to event.operation.description, event.operation %></td>
-   <td><%= eval("link_to event.description, "+event.eventable.class.to_s.downcase+"_event_path(event.eventable,event)") %></td>	
-   <td><%= event.date_used.to_date %></td>
-<% if event.cancelled.nil? %>
-  <% if event.done.nil? %>
-    <td><img alt="planned" src="/images/flag-yellow.png" />planifiée</td>
-  <% else %>
-    <td><img alt="done" src="/images/flag-green.png" />Réalisée</td>
-  <% end %>
-<% else %>
-    <td><img alt="cancelled" src="/images/flag-red.png" />Annulée</td>
-<% end %>
-    
-    <td><%= event.status %></td>
-<% if event.eventable_type == "Instance" %>    
-    <td><%= link_to 'Edit', edit_instance_event_path(event.eventable, event) %></td>
-<% else %>
-  <% if event.eventable_type == "Server" %>
-    <td><%= link_to 'Edit', edit_server_event_path(event.eventable, event) %></td>
-  <% else 
-   # on est sur Branch / Agence %>
-    <td><%= link_to 'Edit', edit_branch_event_path(event.eventable,event) %></td>
-  <% end %>
-<% end %>    
+	<% if currbranch != event.branch_indirect_id %>
+		<% if currbranch != -1 %>
+			</tbody>  
+		<% end %>	
+		<% currbranch = event.branch_indirect_id %>
+  	 	<tbody>
+  	 	<tr class="notice">
+			<td><%= link_to event.branch_indirect.entity.name, event.branch_indirect.entity %><br/><span class="small"><%= event.branch_indirect.entity.description %></span></td>
+			<td><%= link_to event.branch_indirect.name, event.branch_indirect %><br/><span class="small"><%= event.branch_indirect.description %></span></td>
+			<td colspan="6"><%= h(event.branch_indirect.note) %></td>
+		</tr>
+	<% end %>
+	<tr>  	
+		<td><%= link_to event.operation.opegroup.name, event.operation.opegroup %><br/><span class="small"><%= event.operation.opegroup.description %></span></td>
+		<td><%= link_to event.operation.name, event.operation %><br/><span class="small"><%= event.operation.description %></span></td>
+		<td><%= eval("link_to event.description, "+event.eventable.class.to_s.downcase+"_event_path(event.eventable,event)") %></td>	
+		<% if event.cancelled.nil? %>
+		  <% if event.done.nil? %>
+		    <td><img alt="planned" src="/images/flag-yellow.png" />planifiée<br/><span class="small"><%= event.date_used.to_date %></span></td>
+		  <% else %>
+		    <td><img alt="done" src="/images/flag-green.png" />Réalisée<br/><span class="small"><%= event.date_used.to_date %></span></td>
+		  <% end %>
+		<% else %>
+		    <td><img alt="cancelled" src="/images/flag-red.png" />Annulée<br/><span class="small"><%= event.date_used.to_date %></span></td>
+		<% end %>
+		<td><span class="small"><%= event.status %></br></hr><%= event.note %></span></td>
+		<% if event.eventable_type == "Instance" %>    
+		    <td><%= link_to sprite('database_edit')+"modif.", edit_instance_event_path(event.eventable, event) %></td>
+		<% else %>
+		  <% if event.eventable_type == "Server" %>
+		    <td><%= link_to sprite('computer_edit')+"modif.", edit_server_event_path(event.eventable, event) %></td>
+		  <% else 
+		   # on est sur Branch / Agence %>
+		    <td><%= link_to sprite('image_edit')+"modif.", edit_branch_event_path(event.eventable,event) %></td>
+		  <% end %>
+		<% end %>    
   </tr>
 <% end %>
+</tbody>	
 </table>

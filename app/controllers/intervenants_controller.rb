@@ -15,7 +15,7 @@ class IntervenantsController < ApplicationController
   # GET /intervenants/1.xml
   def show
     @intervenant = Intervenant.find(params[:id])
-    @interventions = @intervenant.events.order("eventable_type ASC, eventable_id ASC, coalesce(cancelled,done,planned) ASC")
+    @interventions = @intervenant.events.order("coalesce(cancelled,done,planned) ASC, eventable_type ASC, eventable_id ASC")
 
     respond_to do |format|
       format.html # show.html.erb

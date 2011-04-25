@@ -85,24 +85,24 @@ module PrettyDate
 			  when 0 then return "Aujourd'hui"
 			  when 1 then return "Hier"
 			  when 2 then return "Avant-hier"
-			  when 3..6 then return "La semaine passee" 
-			  when 7..13 then return "Il y a plus d'une semaine" #120 = 2 minutes
-			  when 14..21 then return "Il y a plus de deux semaines"
-			  when 22..28 then return "Il y a plus de trois semaines" # 3600 = 1 hour
-			  when 29..60 then return "Il y a plus d'un mois" 
-			  when 61..90 then return "Il y a plus de deux mois" # 86400 = 1 day
-			  when 91..120 then return "Il y a plus de trois mois" # 86400 = 1 day
-			  when 121..365 then return "Il y a moins d'un an"
-			  when 366..1036800 then return "Il y a plus d'un an"
-			  else return "il y a fort longtemps"
+			  when 3..6 then return "La semaine pass\u00E9e" 
+			  when 7..13 then return "Il y \u0155 plus d'une semaine" #120 = 2 minutes
+			  when 14..21 then return "Il y \u0155 plus de deux semaines"
+			  when 22..28 then return "Il y \u0155 plus de trois semaines" # 3600 = 1 hour
+			  when 29..60 then return "Il y \u0155 plus d'un mois" 
+			  when 61..90 then return "Il y \u0155 plus de deux mois" # 86400 = 1 day
+			  when 91..120 then return "Il y \u0155 plus de trois mois" # 86400 = 1 day
+			  when 121..365 then return "Il y \u0155 moins d'un an"
+			  when 366..1036800 then return "Il y \u0155 plus d'un an"
+			  else return "il y \u0155 fort longtemps"
 			end
 		else	
 			a = (self.to_date-Time.now.to_date).to_i
 			case a
 			  when 0 then return "Aujourd'hui"
 			  when 1 then return "Demain"
-			  when 2 then return "Apres-Demain"
-			  when 3..6 then return "La semaine a venir" 
+			  when 2 then return "Apr\u010Ds-Demain"
+			  when 3..6 then return "La semaine \u0155 venir" 
 			  when 7..13 then return "Dans plus d'une semaine" #120 = 2 minutes
 			  when 14..21 then return "Dans plus de deux semaines"
 			  when 22..28 then return "Dans plus de trois semaines" # 3600 = 1 hour
@@ -111,7 +111,7 @@ module PrettyDate
 			  when 91..120 then return "Dans plus de trois mois" # 86400 = 1 day
 			  when 121..365 then return "Dans moins d'un an"
 			  when 366..1036800 then return "Dans plus d'un an"
-			  else return "Dans tres longtemps"
+			  else return "Dans tr\u010Ds longtemps"
 			end
 		end	
 	end
