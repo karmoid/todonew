@@ -1,17 +1,12 @@
 <%= link_to image_tag("csv.jpg", :border=>0), params.merge(:format => :csv), :action => :install_status %>
+
 <table summary="Etats des planifications, installations & migrations"   border="0" cellspacing="0" cellpadding="0">
 	<caption>
 		<span class="ss_sprite ss_computer_go">Planification</span>,&nbsp; 
 		<span class="ss_sprite ss_computer_add">Installation</span>&nbsp;&&nbsp;
 		<span class="ss_sprite ss_computer">Migration des serveurs</span>
 	</caption>
-	<tfoot>
-		<tr>
-        	<td colspan="5">x Items</td>
-			<td>Oula !</td>
-		</tr>
-	</tfoot>
-	<thead>>
+	<thead>
 		<tr>
 			<th class="span5">Agence & Description</td>
 			<th class="span5">Serveur & Description</td>
@@ -21,8 +16,14 @@
 			<th class="span3 last">Dates de migration</td>
 		</tr>
 	</thead>	
-	<% @ope.each do |o| %>
+	<tfoot>
+		<tr>
+        	<td colspan="5">x Items</td>
+			<td>Oula !</td>
+		</tr>
+	</tfoot>
 	<tbody>
+	<% @ope.each do |o| %>
 		<tr>
 			<td><%= o["agence_name"] %><br /><span class="small"><%= o["agence_desc"] %></span></td>
 			<td><%= o["server_name"] %><br /><span class="small"><%= o["server_desc"] %></span></td>
@@ -31,6 +32,6 @@
 			<td><%= o["install_used"].to_date unless o["install_used"].nil? %></td>
 			<td><%= o["mig_used"].to_date unless o["mig_used"].nil? %></td>
 		</tr>
-	</tbody>	
 	<% end %>
+	</tbody>	
 </table>
