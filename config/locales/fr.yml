@@ -181,8 +181,8 @@ fr:
       full_messages:
         format: "%{attribute} %{message}"
 
-  mainmsg:
-    lastweek: "la semaine passée"
-    after: "après"
-    togo: "à venir"
-    verylongtime: "très longtemps"
+  lastweek: "la semaine passée"
+  after: "après"
+  togo: "à venir"
+  verylongtime: "très longtemps"
+	
