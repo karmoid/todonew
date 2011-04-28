@@ -61,7 +61,12 @@ namespace :deploy do
 	production_env_config = "#{production_config}production.rb"
 	run "cp #{production_db_config} #{release_path}/config/database.yml && cp #{production_env_config} #{release_path}/config/environments/production.rb"
   end
+  
+  task :get_cartographer do
+    run "rm -rf #{release_path}/vendor/plugins/cartographer && cd #{release_path} && git clone git://github.com/parolkar/cartographer.git vendor/plugins/cartographer"
+  end
 end
 
 # after 'deploy:update_code', 'deploy:symlink_shared'
 after 'deploy:update_code' , 'deploy:copy_database_configuration'  
+after 'deploy:copy_database_configuration' , 'deploy:get_cartographer'  

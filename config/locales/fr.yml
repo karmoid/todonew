@@ -183,6 +183,6 @@ fr:
 
   mainmsg:
     lastweek: "la semaine passée"
-  	after: "après"
-  	togo: "à venir"
-  	verylongtime: "très longtemps"
+    after: "après"
+    togo: "à venir"
+    verylongtime: "très longtemps"
