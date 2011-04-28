@@ -76,7 +76,7 @@ class EventsController < ApplicationController
 			left outer join brinks.events emig on (emig.eventable_type='Branch' and emig.eventable_id=b.id and emig.operation_id=3)
 			where s.description not like 'IBM Model%' and
 			s.alias <> ''
-			order by 1 
+			order by 2 
 		SQL
 			
 		@ope = Event.connection.select_all(myquery)

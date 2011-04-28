@@ -10,51 +10,71 @@
 		<p>Suivi interne de Serveurs, Instances de base de données & Agences</p>
 </div>
 <div class="span-24 last">
-	<% if user_signed_in? %>
+<% if user_signed_in? %>
 	<table>
-	  <% last_date = "#" %>
-	  <% last_branch = -1 %>
-	  <% last_name = "" %>
-	  <% accu_html = "" %>
-	  <% nbope = 0 %>
-	  <% @ope.each do |o| %>
-	      <% if last_date !=  o["date_used"].to_date.to_pretty %>
-	          <% last_date = o["date_used"].to_date.to_pretty %>
-	          <% if last_date != "#" %>
-	              </tr>
-	              <% if last_branch != -1 %>
-	          	      <% accu_html += "<td colspan=#{nbope}>" %> 
-	                  <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
-	                  <% accu_html += "</td>" %>
-	              <% end %>
-	  			  <tr><%= raw accu_html %></tr>
-	          <% end %>
-	          <tr>  
-	          <td rowspan="2"><%= last_date %></td>
-	          <% accu_html = "" %>
-	  	      <% last_branch = -1 %>
-	  	      <% last_name = "" %>
-	      <% end %>
-	      <% if last_branch != o["branch_id"].to_i %>
-	          <% if last_branch != -1 %>
-	          	  <% accu_html += "<td colspan=#{nbope}>" %> 
-	              <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
-	              <% accu_html += "</td>" %>
-	          <% end %>
-	          <% nbope = 0 %>
-	          <% last_branch = o["branch_id"].to_i %>
-	          <% last_name = o["branch_name"] %>
-	      <% end %>
-	   	  <td><%= eval("link_to image_tag('"+o["operation_name"].downcase+"-"+o["status"]+".png', :alt =>'"+o["operation_description"]+"' ), "+o["eventable_type"].downcase+"_event_path(o['target_id'].to_i,o['id'].to_i)") %></td>
-	   	  <% nbope += 1 %>
-	  	<% end %>  
-		</td></tr>
-		  <% if last_branch != -1 %>
-		      <% accu_html += "<td colspan=#{nbope}>" %> 
-		      <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
-		      <% accu_html += "</td>" %>
-		  <% end %>
-		<tr><%= raw accu_html %></tr>
-	</table>
+	<tbody>
+	<% last_date = "#" %>
+	<% last_datev = nil %>
+	<% last_branch = -1 %>
+	<% last_name = "" %>
+	<% accu_html = "" %>
+	<% nbope = 0 %>
+	<% @ope.each do |o| %>
+		<% if last_date != o["date_used"].to_date.to_pretty %>
+	        <% if last_date != "#" %>
+	            <% if last_branch != -1 %>
+	          		<% accu_html += "<td colspan=#{nbope}><span class='small'>" %> 
+	                <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
+	                <% accu_html += "</span></td>" %>
+	            <% end %>
+				<td><div class="calendar2">
+	    			<span class="month"><%= link_to I18n.localize(last_datev, :format => "%b"), "/calendar/#{last_datev.year}/#{last_datev.month}" %></span>
+	    			<span class="day"><%= link_to last_datev.day, "/calendar/#{last_datev.year}/#{last_datev.month}/#{last_datev.day}" %></span>
+				</td></div></tr>
+	          	<% accu_html += "<td></td>" %> 
+	  			<tr><%= raw accu_html %></tr>
+	        <% end %>
+	        <tr>  
+	    	<% last_date = o["date_used"].to_date.to_pretty %>
+	        <td rowspan="2"><%= last_date %></td>
+	        <% accu_html = "" %>
+	  	    <% last_branch = -1 %>
+	  	    <% last_name = "" %>
+   			<% last_datev = o["date_used"].to_date %>
+			<td><div class="calendar2">
+    			<span class="month"><%= link_to I18n.localize(last_datev, :format => "%b"), "/calendar/#{last_datev.year}/#{last_datev.month}" %></span>
+    			<span class="day"><%= link_to last_datev.day, "/calendar/#{last_datev.year}/#{last_datev.month}/#{last_datev.day}" %></span>
+			</td></div>
+          	<% accu_html += "<td></td>" %> 
+	    <% end %>
+	    <% if last_branch != o["branch_id"].to_i %>
+	    	<% if last_branch != -1 %>
+          		<% accu_html += "<td colspan=#{nbope}><span class='small'>" %> 
+                <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
+                <% accu_html += "</span></td>" %>
+	        <% end %>
+	        <% nbope = 0 %>
+	        <% last_branch = o["branch_id"].to_i %>
+	        <% last_name = o["branch_name"] %>
+	    <% end %>
+	   	<td><%= eval("link_to image_tag('"+o["operation_name"].downcase+"-"+o["status"]+".png', :alt =>'"+o["operation_description"]+"' ), "+o["eventable_type"].downcase+"_event_path(o['target_id'].to_i,o['id'].to_i)") %></td>
+   		<% last_datev = o["date_used"].to_date %>
+	   	<% nbope += 1 %>
+	<% end %>  
+	<% if last_branch != -1 %>
+    	<% accu_html += "<td colspan=#{nbope}><span class='small'>" %> 
+        <% accu_html += eval("link_to last_name, branch_path(last_branch)")  %>
+        <% accu_html += "</span></td>" %>
+		<td><div class="calendar2">
+   			<span class="month"><%= link_to I18n.localize(last_datev, :format => "%b"), "/calendar/#{last_datev.year}/#{last_datev.month}" %></span>
+   			<span class="day"><%= link_to last_datev.day, "/calendar/#{last_datev.year}/#{last_datev.month}/#{last_datev.day}" %></span>
+		</td></div>
+       	<% accu_html += "<td></td>" %> 
 	<% end %>
+	</td></tr>
+	<tr><%= raw accu_html %></tr>
+	</tbody></table>
+<% end %>
 </div>	  
+
+

@@ -1,4 +1,10 @@
 module GmailsHelper
+  def setlimits
+    @startdate = Date.today - (Date.today.wday==0 ? 6 : Date.today.wday-1)
+    @enddate = @startdate + 21
+    @startdate = @startdate - 14
+  end
+  
 	def set_gmail(data)
     	map = Cartographer::Gmap.new( 'map' )		
 		map.zoom = :bound

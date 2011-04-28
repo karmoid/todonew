@@ -37,11 +37,14 @@
 </p>
 
 <table>
-<tr>
-  <th>Nom</th>
-  <th>Desciption</th>
-  <th>Note</th>
-</tr>
+<thead>
+	<tr>
+	  <th class="span 5">Nom</th>
+	  <th class="span 7">Desciption</th>
+	  <th class="span 12">Note</th>
+	</tr>
+</thead>
+<tbody>
 <% @branch.servers.each do |server| %>
   <tr>
     <td><%= link_to server.name, server%></td>
@@ -49,6 +52,7 @@
     <td><%= server.note %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
 <%= render :partial => "shared/events_by_branch", :locals => { :events => @interventions } %>

@@ -99,12 +99,10 @@ padding: 5px;
 .calendar em:before{left:13px;}	
 .calendar em:after{right:13px;}		
 
-
-
-        .calendar2 { width: 54px; height: 60px; font-size: 0.8em; background: #eee; border: 1px solid; }
-        .calendar2 > span { display: block; }
-        .calendar2 > .month { text-align: right; padding: 2px 5px 2px 0; }
-        .calendar2 > .day { text-align: center; font-weight: bold; font-size: 2.3em; }
+.calendar2 { width: 54px; height: 60px; font-size: 0.8em; background: #eee; border: 1px solid; }
+.calendar2 > span { display: block; }
+.calendar2 > .month { text-align: right; padding: 2px 5px 2px 0; }
+.calendar2 > .day { text-align: center; font-weight: bold; font-size: 2.3em; }
 .calendar2 > .month { background: #6086a6; color: #fff; font-weight: bold; }
 .calendar2 > .day {  background: #fff; }         
 .calendar2 { 
