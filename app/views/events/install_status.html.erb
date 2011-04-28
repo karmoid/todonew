@@ -25,8 +25,8 @@
 	<tbody>
 	<% @ope.each do |o| %>
 		<tr>
-			<td><%= o["agence_name"] %><br /><span class="small"><%= o["agence_desc"] %></span></td>
-			<td><%= o["server_name"] %><br /><span class="small"><%= o["server_desc"] %></span></td>
+			<td><%= link_to o["agence_name"], branch_path(o["agence_id"]) %><br /><span class="small"><%= o["agence_desc"] %></span></td>
+			<td><%= link_to o["server_name"], server_path(o["server_id"]) %><br /><span class="small"><%= o["server_desc"] %></span></td>
 			<td><%= o["serialno"] %></td>
 			<td><%= o["status"] %></td>
 			<td><%= o["install_used"].to_date unless o["install_used"].nil? %></td>

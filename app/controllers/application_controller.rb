@@ -4,7 +4,14 @@ class ApplicationController < ActionController::Base
   helper_method :iphone_user_agent?
   before_filter :adjust_format_for_iphone
   before_filter :iphone_login_required
-  
+  before_filter :set_locale
+
+  def set_locale
+    locale = params[:locale] || 'fr'
+    I18n.locale = locale
+    I18n.load_path += Dir[ File.join(RAILS_ROOT, 'lib', 'locale', '*.{rb,yml}') ]
+  end
+    
 protected
 
 	# Request from an iPhone or iPod touch? (Mobile Safari user agent)

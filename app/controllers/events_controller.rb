@@ -54,8 +54,8 @@ class EventsController < ApplicationController
 	def install_status
 		myquery = <<-SQL
 			select 
-			  b.name as agence_name, b.description as agence_desc, 
-			  lower(s.name) as server_name, s.description as server_desc, substring(s.description from 1 for  position('-' in  s.description)-1) as serialno,
+			  b.id as agence_id, b.name as agence_name, b.description as agence_desc, 
+			  s.id as server_id, lower(s.name) as server_name, s.description as server_desc, substring(s.description from 1 for  position('-' in  s.description)-1) as serialno,
 			  case 
 			    when emig.done is not null then
 			      'Installe & Migre'

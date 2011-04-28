@@ -20,9 +20,15 @@
   <% end %>	
      <% currdate = event.date_used.to_date.to_pretty %>
   	 <tbody>
-  	 <tr class="notice">
-       <td><span class="ss_sprite ss_date">Planification</span>&nbsp;
-       	   <%= link_to event.date_used.to_date, "/calendar/#{event.date_used.year}/#{event.date_used.month}" %></td>
+  	 <tr>
+
+       <td>
+<div class="calendar2">
+    	<span class="month"><%= link_to I18n.localize(event.date_used, :format => "%B"), "/calendar/#{event.date_used.year}/#{event.date_used.month}" %></span>
+    	<span class="day"><%= link_to event.date_used.day, "/calendar/#{event.date_used.year}/#{event.date_used.month}/#{event.date_used.day}" %></span>
+</div>
+<!-- <span class="calendar"><%= link_to event.date_used.day, "/calendar/#{event.date_used.year}/#{event.date_used.month}/#{event.date_used.day}" %><em><%= link_to I18n.localize(event.date_used, :format => "%B"), "/calendar/#{event.date_used.year}/#{event.date_used.month}" %></em></span> -->&nbsp;
+<!--      	   <%= link_to event.date_used.to_date, "/calendar/#{event.date_used.year}/#{event.date_used.month}" %> -->   </td> 
        <td colspan="7"><%= h(currdate) %></td>
      </tr>
    <% end %>
