@@ -284,7 +284,12 @@ where opegroup_name = 'SRV_REFRESH' and
             lastyear = year
             lastweek = week
             lastdate = s["mydate"].to_date
-            caption_x << year.to_s + "-" + week.to_s
+            if lastdate.wday==0
+              lastdate = lastdate - 6
+            else  
+              lastdate = lastdate - lastdate.wday + 1
+            end 
+            caption_x << lastdate.day.to_s + "-" + lastdate.month.to_s + "-" + lastdate.year.to_s
             dataplan << 0
             datadone << 0
             datacancel << 0
@@ -292,7 +297,7 @@ where opegroup_name = 'SRV_REFRESH' and
             lastdate = lastdate + 7
             lastyear = lastdate.cwyear
             lastweek = lastdate.cweek
-            caption_x << lastyear.to_s + "-" + lastweek.to_s
+            caption_x << lastdate.day.to_s + "-" + lastdate.month.to_s + "-" + lastdate.year.to_s
             dataplan << dataplan.last
             datadone << datadone.last
             datacancel << datacancel.last
@@ -327,17 +332,19 @@ where opegroup_name = 'SRV_REFRESH' and
     line = Bar.new
     line.text = "Abandonne"
     line.width = 1
-    line.colour = '#5E4725'
+    line.colour = '#FF3333'
     line.dot_size = 5
     line.values = datacancel
+     
      
     tmp = []
     
     x_labels = XAxisLabels.new
-    x_labels.set_vertical()
+    x_labels.visible_steps = 2
+    x_labels.rotate = -90
 
     caption_x.each do |text|
-      tmp << XAxisLabel.new(text, '#0000ff', 10, '')
+      tmp << XAxisLabel.new(text, '#0000ff', 12, '')
     end
 
     x_labels.labels = tmp
