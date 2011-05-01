@@ -14,6 +14,35 @@
 		<%= raw Cartographer::Header.new.to_s %>
 		<%= raw @map.to_html %>
 		<div style="width:700px;height:700px;" id="map" >[Map] 
-		</div>  	
+		</div>
+	<% end %>
+</div>
+	  
+<div class="span-24 last">
+	<% if user_signed_in? %>
+		<div class="span12 left">
+		<span class="large">Répartition des étapes</span>
+			<div>
+				<%= raw @graph3%>
+			</div>
+		</div>
+	<% end %>
+</div>	  
+
+<div class="span-24 last">
+	<% if user_signed_in? %>
+		<h1>Etat des installations</h1>
+		<div>
+			<%= raw @graph1%>
+		</div>
+	<% end %>
+</div>	  
+
+<div class="span-24 last">
+	<% if user_signed_in? %>
+		<h1>Etat des migrations</h1>
+		<div>
+			<%= raw @graph2%>
+		</div>
 	<% end %>
 </div>	  

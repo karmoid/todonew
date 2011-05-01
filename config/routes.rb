@@ -9,8 +9,13 @@ Toudoux::Application.routes.draw do
   get "events/install_status"
   get "events/period/:period" => "events#index"
 
+  get "test_it/index"
+
   get "welcome/account"
   get "welcome/indexmap"
+  get "welcome/graph_install"
+  get "welcome/graph_migrate"
+  get "welcome/pie_status"
   match "welcome/sample_ajax/:id" => "welcome#sample_ajax"
 
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}

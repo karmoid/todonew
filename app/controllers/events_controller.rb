@@ -59,10 +59,10 @@ class EventsController < ApplicationController
 			  case 
 			    when emig.done is not null then
 			      'Installe & Migre'
-			    when einst.done is not null then 
-			      'Installe'
 			    when emig.cancelled is not null then
 			      'Migration abandonnee'
+          when einst.done is not null then 
+            'Installe'
 			    when einst.cancelled is not null then
 			      'Installation abandonnee'
 			    else
