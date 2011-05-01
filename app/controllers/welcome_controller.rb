@@ -21,11 +21,22 @@ class WelcomeController < ApplicationController
    	  @map = set_gmail(@data)
     end
     respond_to do |format|
+      format.html 
+      format.xml  { render :xml => @data }
+      format.iphone {render :action => :index}
+    end
+  end
+  
+  def stat
+    @title = "Statistiques"
+    respond_to do |format|
       format.html {
-        @graph1 = open_flash_chart_object( 960, 400, '/welcome/graph_install' )
-        @graph2 = open_flash_chart_object( 960, 400, '/welcome/graph_migrate' )
-        @graph3 = open_flash_chart_object( 470, 400, '/welcome/pie_status' )
-        } 
+        if user_signed_in?
+          @graph1 = open_flash_chart_object( 960, 400, '/welcome/graph_install' )
+          @graph2 = open_flash_chart_object( 960, 400, '/welcome/graph_migrate' )
+          @graph3 = open_flash_chart_object( 470, 400, '/welcome/pie_status' )
+        end  
+      } 
       format.xml  { render :xml => @data }
       format.iphone {render :action => :index}
     end

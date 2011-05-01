@@ -13,6 +13,7 @@ Toudoux::Application.routes.draw do
 
   get "welcome/account"
   get "welcome/indexmap"
+  get "welcome/stat"
   get "welcome/graph_install"
   get "welcome/graph_migrate"
   get "welcome/pie_status"
