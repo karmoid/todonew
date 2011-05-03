@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   # GET /events.xml
   def index
   	@period = params[:period] || 7
-  	getevents 
+  	getevents(Date.current-@period.to_i, Date.current+@period.to_i) 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @events }
@@ -121,13 +121,13 @@ class EventsController < ApplicationController
 		   	
 	end
 
-  def getevents
+  def getevents(debut, fin)
     @interventions = Event.where(
      	"(planned between :startdate and :enddate) or "+
         "(done between :startdate and :enddate) or "+
         "(cancelled between :startdate and :enddate)",
-  		{:startdate => Date.current-@period.to_i, :enddate => Date.current+@period.to_i}).
-  		order("coalesce(cancelled,done,planned) ASC")
+  		{:startdate => debut, :enddate => fin}).
+  		order("coalesce(cancelled,done,planned) ASC, eventable_id")
   end
 
   # GET /events/1
@@ -210,6 +210,16 @@ class EventsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def newcal
+    @date = params[:month] ? Date.parse(params[:month]) : Date.today
+    getevents(@date.beginning_of_month, @date.end_of_month) 
+    respond_to do |format|
+      format.html 
+      format.xml  
+    end
+  end
+
   
   private
 

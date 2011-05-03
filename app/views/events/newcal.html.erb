@@ -1,0 +1,31 @@
+<div id="calend">
+  <h2 id="month">
+    <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("01-%m-%Y") %>
+    <%= h I18n.localize(@date, :format => "%B %Y") %>
+    <%= link_to ">", :month => (@date.end_of_month+1).strftime("01-%m-%Y") %>
+  </h2>
+  <% lastbranch = -1 %>
+  <% calendar_for @interventions.to_a, :year => @date.year, :month => @date.month do |calendar| %>
+    <%= calendar.head('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi') %>
+    <% calendar.day(:day_method => :planned) do |date, interventions| %>
+      <%= link_to date.day, calendar_path(date.year, date.month, date.day) %>
+      <ul>
+        <% for article in interventions %>
+          <li>
+			<% if article.operation.opegroup.name != "CALENDAR" %>
+				<% if lastbranch == article.branch_indirect_id %>
+					&&nbsp;
+				<% else %>
+					<%= link_to h(article.branch_indirect.name), article.branch_indirect %>&nbsp;
+					<% lastbranch = article.branch_indirect_id %>
+				<% end %>
+			<% else %>
+				<% lastbranch = -1  %>
+			<% end %>
+			<%= h(article.operation.description) %>
+		  </li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+</div>

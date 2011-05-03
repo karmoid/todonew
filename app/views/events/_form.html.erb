@@ -24,15 +24,18 @@
   		<tr>
   			<td>
     <%= f.label :planned %><br />
-    <%= f.date_select :planned  %>
+    <%= f.text_field :planned %>
   			</td>
+<td>
+<input type="button" id="rangeDemoClear" value="clear" />
+</td>
   			<td>
     <%= f.label :done %><br />
-    <%= f.date_select :done, :include_blank => 'true', :default => 'nil' %>
+    <%= f.text_field :done %>
   			</td>
   			<td>
     <%= f.label :cancelled %><br />
-    <%= f.date_select :cancelled, :include_blank => 'true', :default => 'nil' %>
+    <%= f.text_field :cancelled %>
   			</td>
   		</tr>
   	</table>

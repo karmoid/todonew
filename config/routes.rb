@@ -8,6 +8,7 @@ Toudoux::Application.routes.draw do
   get "events/index"
   get "events/install_status"
   get "events/period/:period" => "events#index"
+  get "events/newcal"
 
   get "test_it/index"
 
