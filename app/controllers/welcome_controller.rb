@@ -386,7 +386,7 @@ where opegroup_name = 'SRV_REFRESH' and
     pie.start_angle = 35
     pie.animate = true
     pie.tooltip = '#val# sur #total#<br>#percent#%'
-    pie.colours = ["#d01f3c", "#356aa0", "#C79810","#ee0099","#ccff11"]
+    pie.colours = ["#d01f3c", "#356aa0", "#C79810","#ee0099","#0099CC"]
 
     tmp = []
     @stat.each do |s|

@@ -25,18 +25,19 @@
   			<td>
     <%= f.label :planned %><br />
     <%= f.text_field :planned %>
-  			</td>
-<td>
-<input type="button" id="rangeDemoClear" value="clear" />
-</td>
+    </td>
   			<td>
     <%= f.label :done %><br />
-    <%= f.text_field :done %>
-  			</td>
+    <%= f.text_field :done %>&nbsp;
+        <span id="doneclear" class="ss_sprite ss_basket_remove">Vide</span>&nbsp;
+        <span id="doneset" class="ss_sprite ss_basket_add">Fait</span>
+</td>
   			<td>
     <%= f.label :cancelled %><br />
-    <%= f.text_field :cancelled %>
-  			</td>
+    <%= f.text_field :cancelled %>&nbsp;
+        <span id="cancelclear" class="ss_sprite ss_basket_remove">Vide</span>&nbsp;
+        <span id="cancelset" class="ss_sprite ss_basket_add">Fait</span>&nbsp;
+</td>
   		</tr>
   	</table>
   </div>

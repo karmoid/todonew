@@ -11,8 +11,8 @@ class EventsController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @events }
       format.iphone { render :layout => false }
-	  format.csv do
-			filename = I18n.l(Time.now, :format => :short) + "- interventions.csv"	
+	    format.csv do
+			 filename = I18n.l(Time.now, :format => :short) + "- interventions.csv"	
 	      	csv_string = CSV.generate do |csv|
 		        # header row
 		        csv << ["Id", "Description", "Groupe", "Operation", "Agence", "Serveur", "Instance", "Etat", "Date"]

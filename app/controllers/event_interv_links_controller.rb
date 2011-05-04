@@ -5,6 +5,7 @@ class EventIntervLinksController < ApplicationController
     get_parents
     respond_to do |format|
       if @event.intervenants << @intervenant
+        puts @parent.class.to_s.downcase+"_event_path(@parent,@event)"
         format.html { redirect_to(eval(@parent.class.to_s.downcase+"_event_path(@parent,@event)"), :notice => 'Intervenant was successfully added.') }
         format.xml  { head :ok }
       else
