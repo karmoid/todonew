@@ -58,7 +58,7 @@
 			<td><%= i.email %></td>
 			<td><%= i.phone1 %> / <%= i.phone2 %></td>
 			<td><%= i.note %></td>
-			<td><%= eval("link_to 'supprimer', "+path+"_event_intervenant_path(@parent,@event,i), :method => :delete") %></td>
+			<td><%= button_to "Retirer", {:controller => "event_interv_links", :action => :destroy, :id => i.id, :"#{path}_id" => @parent.id, :event_id => @event.id}, {:method => :delete, :confirm => "Etes-vous sur ?"}  %>
 		</tr>
 	<% end %>
 <% else %>
@@ -85,7 +85,7 @@
 			<td><%= i.email %></td>
 			<td><%= i.phone1 %> / <%= i.phone2 %></td>
 			<td><%= i.note %></td>
-			<td><%= eval("link_to 'Ajouter', "+path+"_event_intervenant_path(@parent,@event,i), {:action => :update, :method => :put}") %></td>
+			<td><%= button_to "Ajouter", {:controller => "event_interv_links", :action => :update, :id => i.id, :"#{path}_id" => @parent.id, :event_id => @event.id}, {:method => :put}  %>
 		</tr>
 	<% end %>
 </table>
