@@ -5,8 +5,8 @@
     <%= link_to ">", :month => (@date.end_of_month+1).strftime("01-%m-%Y") %>
   </h2>
   <% lastbranch = -1 %>
-  <% calendar_for @interventions.to_a, :year => @date.year, :month => @date.month do |calendar| %>
-    <%= calendar.head('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi') %>
+  <% calendar_for @interventions.to_a, :first_day_of_week => 1, :year => @date.year, :month => @date.month do |calendar| %>
+    <%= calendar.head('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche') %>
     <% calendar.day(:day_method => :planned) do |date, interventions| %>
       <%= link_to date.day, calendar_path(date.year, date.month, date.day) %>
       <ul>
