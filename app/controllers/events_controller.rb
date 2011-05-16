@@ -129,6 +129,18 @@ class EventsController < ApplicationController
   		{:startdate => debut, :enddate => fin}).
   		order("coalesce(cancelled,done,planned) ASC, eventable_id")
   end
+  
+  def geteventscal(debut, fin)
+    maquery = <<-SQL
+      select e.id, e.description, e.operation_id, e.note, b2.dateref as planned, e.done, e.cancelled, e.status, e.created_at, e.updated_at, e.eventable_id, e.eventable_type, e.all_day
+        from brinks.events as e,
+        (select DATE '#{debut}' + id * interval '1 day' dateref from generate_series(0,31) as id) as b2
+        where (b2.dateref between '#{debut}' and '#{fin}') and
+              ((e.planned<=b2.dateref) and (b2.dateref <= coalesce(cancelled,done,planned)))
+        order by b2.dateref ASC, eventable_id
+        SQL
+    @interventions = Event.find_by_sql(maquery)
+  end  
 
   # GET /events/1
   # GET /events/1.xml
@@ -213,7 +225,7 @@ class EventsController < ApplicationController
 
   def newcal
     @date = params[:month] ? Date.parse(params[:month]) : Date.today
-    getevents(@date.beginning_of_month, @date.end_of_month) 
+    geteventscal(@date.beginning_of_month, @date.end_of_month)
     respond_to do |format|
       format.html 
       format.xml  

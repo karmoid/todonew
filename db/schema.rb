@@ -10,16 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110311082921) do
-
-  create_table "applications", :force => true do |t|
-    t.string   "code"
-    t.string   "description"
-    t.integer  "perimeter_id"
-    t.datetime "stopped_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20110512065347) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
@@ -33,22 +24,20 @@ ActiveRecord::Schema.define(:version => 20110311082921) do
     t.integer  "refreshed",   :default => 1
   end
 
+  create_table "calls", :force => true do |t|
+    t.datetime "when"
+    t.time     "duree"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "carl", :force => true do |t|
     t.string   "utilisateur", :limit => 64
     t.string   "terminal",    :limit => 64
     t.integer  "poste"
     t.datetime "debut"
     t.datetime "fin"
-  end
-
-  create_table "contacts", :force => true do |t|
-    t.string   "nom"
-    t.string   "prenom"
-    t.string   "mail"
-    t.string   "phone1"
-    t.string   "phone2"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "counter", :primary_key => "indice", :force => true do |t|
@@ -105,14 +94,15 @@ ActiveRecord::Schema.define(:version => 20110311082921) do
     t.string   "description"
     t.integer  "operation_id"
     t.text     "note"
-    t.date     "planned"
-    t.date     "done"
-    t.date     "cancelled"
+    t.datetime "planned"
+    t.datetime "done"
+    t.datetime "cancelled"
     t.text     "status"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "eventable_id"
     t.string   "eventable_type"
+    t.boolean  "all_day",        :default => true
   end
 
   create_table "instances", :force => true do |t|
@@ -139,22 +129,6 @@ ActiveRecord::Schema.define(:version => 20110311082921) do
     t.datetime "updated_at"
   end
 
-  create_table "managers", :force => true do |t|
-    t.string   "nom"
-    t.string   "prenom"
-    t.datetime "stopped_at"
-    t.integer  "service_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "metiers", :force => true do |t|
-    t.string   "code"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "opegroups", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -168,58 +142,18 @@ ActiveRecord::Schema.define(:version => 20110311082921) do
     t.integer  "opegroup_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cal_color",    :limit => 32
+    t.string   "short_name",   :limit => 6
+    t.string   "spriteplan"
+    t.string   "spritedone"
+    t.string   "spritecancel"
   end
 
   create_table "perimeters", :force => true do |t|
     t.string   "code"
-    t.string   "description"
-    t.datetime "stopped_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "phases", :force => true do |t|
-    t.string   "code"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "project_demandeurs", :force => true do |t|
-    t.string   "perimetre"
-    t.integer  "contact_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "project_managers", :force => true do |t|
-    t.string   "perimetre"
-    t.integer  "contact_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "projets", :force => true do |t|
-    t.string   "code"
-    t.string   "shortdesc"
-    t.text     "longdesc"
-    t.integer  "project_manager_id"
-    t.integer  "project_demandeur_id"
-    t.date     "create_dmd"
-    t.date     "plan_mep"
-    t.date     "reel_mep"
-    t.integer  "phase_id"
-    t.date     "lastcopil"
-    t.date     "nextcopil"
-    t.boolean  "planif"
-    t.integer  "risque_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "risques", :force => true do |t|
-    t.string   "code"
-    t.string   "description"
+    t.string   "libelle"
+    t.text     "comment"
+    t.boolean  "useable"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -234,14 +168,6 @@ ActiveRecord::Schema.define(:version => 20110311082921) do
     t.datetime "updated_at"
   end
 
-  create_table "services", :force => true do |t|
-    t.string   "code"
-    t.string   "description"
-    t.datetime "stopped_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "temp", :force => true do |t|
     t.string  "agc"
     t.string  "ope"
@@ -251,6 +177,20 @@ ActiveRecord::Schema.define(:version => 20110311082921) do
     t.integer "operation_id"
     t.string  "eventable_type"
     t.integer "parent_id"
+  end
+
+  create_table "trashtable", :id => false, :force => true do |t|
+    t.string  "resource"
+    t.date    "startdate"
+    t.string  "task"
+    t.integer "branch_id"
+  end
+
+  create_table "trashtag", :id => false, :force => true do |t|
+    t.string  "lib"
+    t.string  "sn",        :limit => 32
+    t.string  "name"
+    t.integer "server_id"
   end
 
   create_table "users", :force => true do |t|

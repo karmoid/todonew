@@ -19,10 +19,11 @@
 					<%= link_to h(article.branch_indirect.name), article.branch_indirect %>&nbsp;
 					<% lastbranch = article.branch_indirect_id %>
 				<% end %>
+				<%= h(article.operation.description) %>
 			<% else %>
 				<% lastbranch = -1  %>
+				<%= raw article.sprite_used_html(article.operation.description) %>
 			<% end %>
-			<%= h(article.operation.description) %>
 		  </li>
         <% end %>
       </ul>

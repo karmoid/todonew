@@ -34,18 +34,24 @@
    <% end %>
   <tr>     	
    <td><%= link_to event.operation.opegroup.name, event.operation.opegroup %><br/><span class="small"><%= event.operation.opegroup.description %></span></td>
-   <td><%= link_to event.operation.name, event.operation %><br/><span class="small"><%= event.operation.description %></span></td>
+   <td><%= link_to event.operation.name, event.operation %><br/><span class="small"><%= event.operation.description %></span>
+       
+   </td>
    <td><%= eval("link_to event.description, "+event.eventable.class.to_s.downcase+"_event_path(event.eventable,event)") %></td>	
    <td><%= link_to event.branch_indirect.entity.name, event.branch_indirect.entity %><br/><%= link_to event.branch_indirect.name, event.branch_indirect %></td>
-<% if event.cancelled.nil? %>
-  <% if event.done.nil? %>
-    <td><img alt="planned" src="/images/flag-yellow.png" />planifiée<br/><span class="small"><%= event.date_used.to_date %></span></td>
-  <% else %>
-    <td><img alt="done" src="/images/flag-green.png" />Réalisée<br/><span class="small"><%= event.date_used.to_date %></span></td>
-  <% end %>
-<% else %>
-    <td><img alt="cancelled" src="/images/flag-red.png" />Annulée<br/><span class="small"><%= event.date_used.to_date %></span></td>
-<% end %>
+	<td>
+   <% if event.sprite_used != "" %>
+     <%= raw event.sprite_used_html(event.date_used_desc) %><br/><span class="small"><%= event.date_used.to_date %></span>
+   <% else %>
+		<% if ! event.cancelled.nil? %>
+		    <img alt="cancelled" src="/images/flag-red.png" />Annulée<br/><span class="small"><%= event.date_used.to_date %></span>
+	    <% elsif ! event.done.nil? %>
+		    <img alt="done" src="/images/flag-green.png" />Réalisée<br/><span class="small"><%= event.date_used.to_date %></span>
+		<% else %> 	
+		    <img alt="planned" src="/images/flag-yellow.png" />planifiée<br/><span class="small"><%= event.date_used.to_date %></span>
+		<% end %>
+   <% end %>
+	</td>
     <td class="small"><%= event.status %></td>
 <% if event.eventable_type == "Instance" %>    
     <td><%= link_to sprite('database_edit')+"modif.", edit_instance_event_path(event.eventable, event) %></td>

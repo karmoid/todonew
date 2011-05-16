@@ -18,6 +18,10 @@
 </p>
 
 <p>
+  <b>Etat décoré actuel:</b>&nbsp;<%= raw @event.sprite_used_html(@event.date_used_desc) %>
+</p>
+
+<p>
   <b>Planned:</b>
   <%= link_to @event.planned, "/calendar/#{@event.planned.year}/#{@event.planned.month}/#{@event.planned.day}"  unless @event.planned.nil? %>
 </p>

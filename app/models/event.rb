@@ -50,7 +50,32 @@ class Event < ActiveRecord::Base
 		return cancelled unless cancelled.nil?
 		return planned
 	end
+	
 	def end_at=(value)
 		done = value
-	end  
+	end
+	
+  def sprite_used
+    if ! done.nil? 
+      tmp = operation.spritedone
+    elsif ! cancelled.nil?
+      tmp = operation.spritecancel
+    elsif ! planned.nil?
+      tmp = operation.spriteplan
+    else
+      tmp = ""  
+    end
+    tmp.nil? ? "" : tmp  
+  end
+
+  def sprite_used_html(texte="&nbsp;")
+    tmp = sprite_used
+    tmp == texte ? tmp : "<span " + sprite_used_class + ">#{texte}</span>" 
+  end
+  
+  def sprite_used_class
+    tmp = sprite_used
+    tmp == "" ? tmp : "class='ss_sprite #{tmp}'" 
+  end
+
 end

@@ -23,6 +23,20 @@
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </div>
+  <div class="span-24">
+	  <div class="span-8 field">
+	    <%= f.label :spriteplan %><br />
+	    <%= f.text_field :spriteplan %>
+	  </div>
+	  <div class="span-8 field">
+	    <%= f.label :spritedone %><br />
+	    <%= f.text_field :spritedone %>
+	  </div>
+	  <div class="span-8 last field">
+	    <%= f.label :spritecancel %><br />
+	    <%= f.text_field :spritecancel %>
+	  </div>
+  </div>	
   <div class="field">
     <%= f.label :opegroup_id %><br />
     <%= f.select :opegroup_id, @opegroups.collect {|s| [s.name, s.id]} %>

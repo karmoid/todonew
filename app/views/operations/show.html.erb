@@ -13,6 +13,26 @@
 </p>
 
 <p>
+  <b>Decoration:</b>
+  <% unless @operation.spriteplan.nil? %>
+	<span class="ss_sprite <%= @operation.spriteplan %>">Planifié</span>&nbsp;
+  <% else %> 
+	Planifié : Non renseigné&nbsp;
+  <% end %>
+  <% unless @operation.spritedone.nil? %>
+	<span class="ss_sprite <%= @operation.spritedone %>">Réalisé</span>&nbsp;
+  <% else %> 
+	Réalisé : Non renseigné&nbsp;
+  <% end %>
+  <% unless @operation.spritecancel.nil? %>
+	<span class="ss_sprite <%= @operation.spritecancel %>">Annulé</span>&nbsp;
+  <% else %> 
+	Annulé : Non renseigné&nbsp;
+  <% end %>
+</p>
+
+
+<p>
   <b>Groupe d'opérations:</b>
   <%= link_to @operation.opegroup.name, @operation.opegroup %>
 </p>
